@@ -11,6 +11,7 @@ namespace Labb2
         static void Main(string[] args)
         {
             Console.WriteLine("HEj");
+            Console.WriteLine("då");
         }
     }
 }
