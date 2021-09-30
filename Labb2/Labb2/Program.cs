@@ -15,6 +15,7 @@ namespace Labb2
             Console.WriteLine("?");
             Console.WriteLine("?");
             Console.WriteLine("hej igen");
+            Console.WriteLine("Tjooo");
         }
     }
 }
