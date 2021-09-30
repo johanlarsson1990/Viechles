@@ -12,6 +12,7 @@ namespace Labb2
         {
             Console.WriteLine("HEj");
             Console.WriteLine("då");
+            Console.WriteLine("?");
         }
     }
 }
