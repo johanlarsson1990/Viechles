@@ -14,6 +14,7 @@ namespace Labb2
             Console.WriteLine("då");
             Console.WriteLine("?");
             Console.WriteLine("?");
+            Console.WriteLine("hej igen");
         }
     }
 }
