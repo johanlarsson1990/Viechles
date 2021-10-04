@@ -96,10 +96,64 @@ namespace Labb2
 
                         break;
                     case 2:
-                        // skriver ut Listan Boats
+                        WriteList(Boat.listOfBoats, "Boat", "knots");
+
+
+                        if (inputString == "+")
+                        {
+                            AddVehicle(Boat.listOfBoats, "Boat");
+                            continue;
+                        }
+
+                        else
+                        {
+                            ShowSpecificVehicle(Boat.listOfBoats, "Boat", "knots");
+
+                            if (inputString == "-")
+                            {
+                                RemoveVehicle(Boat.listOfBoats, "Boat", "knots");
+                                continue;
+                            }
+                            else
+                            {
+                                ChangeSpeed(Car.listOfCars, "Boat", "knots");
+                                continue;
+
+                            }
+
+
+
+                        }
                         break;
                     case 3:
-                        // skriver ut listan Motorcyles
+                        WriteList(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+
+
+                        if (inputString == "+")
+                        {
+                            AddVehicle(Motorcycle.listOfMotorcycles, "Motorcycle");
+                            continue;
+                        }
+
+                        else
+                        {
+                            ShowSpecificVehicle(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+
+                            if (inputString == "-")
+                            {
+                                RemoveVehicle(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+                                continue;
+                            }
+                            else
+                            {
+                                ChangeSpeed(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+                                continue;
+
+                            }
+
+
+
+                        }
                         break;
                     case 4:
                         // skriver ut alla listor i m/s
