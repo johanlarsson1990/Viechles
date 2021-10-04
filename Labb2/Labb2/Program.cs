@@ -64,19 +64,17 @@ namespace Labb2
                 {
                     case 1:
 
-
-                        WriteList(Car.listOfCars, "Car", "mph");
-
+                             WriteList(Car.listOfCars, "Car", "mph");
 
                         if (inputString == "+")
                         {
-                            AddVehicle(Car.listOfCars, "Car");
-                            continue;
+                              AddVehicle(Car.listOfCars, "Car");
+                              continue;
                         }
 
                         else
                         {
-                            ShowSpecificVehicle(Car.listOfCars, "Car", "mph");
+                              ShowSpecificVehicle(Car.listOfCars, "Car", "mph");
 
                             if (inputString == "-")
                             {
@@ -87,27 +85,23 @@ namespace Labb2
                             {
                                 ChangeSpeed(Car.listOfCars, "Car", "mph");
                                 continue;
-
                             }
-
-
-
                         }
 
                         break;
                     case 2:
-                        WriteList(Boat.listOfBoats, "Boat", "knots");
+                               WriteList(Boat.listOfBoats, "Boat", "knots");
 
 
                         if (inputString == "+")
                         {
-                            AddVehicle(Boat.listOfBoats, "Boat");
-                            continue;
+                               AddVehicle(Boat.listOfBoats, "Boat");
+                               continue;
                         }
 
                         else
                         {
-                            ShowSpecificVehicle(Boat.listOfBoats, "Boat", "knots");
+                               ShowSpecificVehicle(Boat.listOfBoats, "Boat", "knots");
 
                             if (inputString == "-")
                             {
@@ -118,26 +112,22 @@ namespace Labb2
                             {
                                 ChangeSpeed(Car.listOfCars, "Boat", "knots");
                                 continue;
-
                             }
-
-
-
                         }
                         break;
                     case 3:
-                        WriteList(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+                                WriteList(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
 
 
                         if (inputString == "+")
                         {
-                            AddVehicle(Motorcycle.listOfMotorcycles, "Motorcycle");
-                            continue;
+                                AddVehicle(Motorcycle.listOfMotorcycles, "Motorcycle");
+                               continue;
                         }
 
                         else
                         {
-                            ShowSpecificVehicle(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+                                ShowSpecificVehicle(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
 
                             if (inputString == "-")
                             {
@@ -148,11 +138,7 @@ namespace Labb2
                             {
                                 ChangeSpeed(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
                                 continue;
-
                             }
-
-
-
                         }
                         break;
                     case 4:
