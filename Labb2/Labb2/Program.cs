@@ -110,7 +110,7 @@ namespace Labb2
                             }
                             else
                             {
-                                ChangeSpeed(Car.listOfCars, "Boat", "knots");
+                                ChangeSpeed(Boat.listOfBoats, "Boat", "knots");
                                 continue;
                             }
                         }
