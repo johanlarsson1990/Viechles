@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static Labb2.Program;
 
 namespace Labb2
 {
@@ -19,6 +20,8 @@ namespace Labb2
         public static Car car = new Car();
         public static Boat boat = new Boat();
         public static Motorcycle motorcycle = new Motorcycle();
+        
+
         static void Main(string[] args)
         {
             Menu();
@@ -65,18 +68,29 @@ namespace Labb2
                 switch (input)
                 {
                     case 1:
+                        
                         VehicleTypeChoice(car);
                         break;
                     case 2:
                         VehicleTypeChoice(boat);
-                        // skriver ut Listan Boats
                         break;
                     case 3:
                         VehicleTypeChoice(motorcycle);
-                        // skriver ut listan Motorcyles
                         break;
                     case 4:
-                        // skriver ut alla listor i m/s
+                        var meterPerSecondList = new List<IVehicle>
+                        {
+                            car,
+                            boat,
+                            motorcycle
+                        };
+                        PrintSpeedInMetersPerSecond(car);
+                        PrintSpeedInMetersPerSecond(boat);
+                        PrintSpeedInMetersPerSecond(motorcycle);
+
+                        Console.WriteLine("Press any key to go back to main menu.");
+                        Console.ReadKey();
+                        Console.Clear();
                         break;
                     default:
                         break;
@@ -89,11 +103,12 @@ namespace Labb2
 
         public static void VehicleTypeChoice(IVehicle type)
         {
+            
+            
             type.WriteList();
 
             inputString = Console.ReadLine();
             Console.Clear();
-
             if (inputString == "+")
             {
                 type.AddVehicle();
@@ -129,6 +144,49 @@ namespace Labb2
                     //continue;
                 }
             }
+        }
+
+        public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
+        {
+            const double mpH = 0.447;
+            const double knots = 0.514;
+            const double kmH = 0.278;
+            
+
+            if (vehicleToPrint is Car)
+            {
+                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} {vehicleToPrint.VehicleType}s in stock --");
+                foreach (var i in vehicleToPrint.VehicleList)
+                {
+                    Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * mpH, 2)} m/s"); 
+                }
+
+                
+
+            }
+
+            else if (vehicleToPrint is Boat)
+            {
+                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} {vehicleToPrint.VehicleType}s in stock --");
+                foreach (var i in vehicleToPrint.VehicleList)
+                {
+                    Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * knots, 2)} m/s");
+                }
+
+            }
+
+            else if (vehicleToPrint is Motorcycle)
+            {
+                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} {vehicleToPrint.VehicleType}s in stock --");
+                foreach (var i in vehicleToPrint.VehicleList)
+                {
+                    Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * kmH, 2)} m/s");
+                }
+            }
+
+            Console.WriteLine($"\n" +
+                              $"-----------------\n" +
+                              $"");
         }
         
     }

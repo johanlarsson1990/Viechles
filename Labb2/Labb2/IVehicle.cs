@@ -16,6 +16,7 @@ namespace Labb2
         void IndexedVehicle(int i);
         void RemoveVehicle(int i);
         void ChangeSpeed(int i);
+        
 
     }
 }
