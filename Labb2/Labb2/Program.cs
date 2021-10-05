@@ -70,7 +70,7 @@ namespace Labb2
 
                         if (inputString == "+")
                         {
-                            AddVehicle(1, Vehicle.Car);
+                            AddVehicle(1, Vehicle.Car,true);
                               continue;
                         }
 
@@ -98,7 +98,7 @@ namespace Labb2
 
                         if (inputString == "+")
                         {
-                               AddVehicle(1, Vehicle.Boat);
+                               AddVehicle(1, Vehicle.Boat,true);
                                continue;
                         }
 
@@ -125,7 +125,7 @@ namespace Labb2
 
                         if (inputString == "+")
                         {
-                                AddVehicle(1, Vehicle.Motorcycle);
+                                AddVehicle(1, Vehicle.Motorcycle,true);
                                continue;
                         }
 
@@ -160,28 +160,25 @@ namespace Labb2
         {
             
             Console.WriteLine($"-- {list.Count} {vehicle}s in stock --");
+           
             foreach (var i in list)
-            {
-                var index = list.IndexOf(i)+1;
-                //index = index + 1;
                 Console.WriteLine($"{i.Name} - {i.Speed} {speedUnit}");
-
-            }
+           
             Console.WriteLine($"----------------");
             Console.WriteLine($"Please select {vehicle} to change (1-{list.Count}) or enter + to add a new {vehicle}");
             inputString = Console.ReadLine();
             if (inputString != "+")
                 Item = list[int.Parse(inputString)-1];
+            
             Console.Clear();
         }
 
-        public static void AddVehicle(int addera, Vehicle type)
+        public static void AddVehicle(int addera, Vehicle type, bool write =false)
         {
             var random = new Random();
+            
             for (int i = 0; i < addera; i++)
             {
-                
-                random.Next(random.Next(10, 100));
                 if(type == Vehicle.Motorcycle)
                     vehicles.Add(new Motorcycle(random));
                 if (type == Vehicle.Car)
@@ -189,17 +186,19 @@ namespace Labb2
                 if (type == Vehicle.Boat)
                     vehicles.Add(new Boat(random));
             }
-
-           // Console.WriteLine($"{type} added, press any key to go back to main menu");
-           // Console.ReadKey();
-           // Console.Clear();
+            if (write)
+            {
+                 Console.WriteLine($"{type} added, press any key to go back to main menu");
+                 Console.ReadKey();
+                 Console.Clear();
+            }
+           
         }
 
         public static void ShowSpecificVehicle(IVehicle Item, string speedUnit)
         {
             input = int.Parse(inputString);
             
-
             Console.WriteLine($"-- {Item.Name} {input} --");
             Console.WriteLine($"Speed: {Item.Speed} {speedUnit}");
             Console.WriteLine("----------------");
@@ -211,6 +210,7 @@ namespace Labb2
         public static void RemoveVehicle(IVehicle Item)
         {
             vehicles.Remove(Item);
+            
             Console.WriteLine($"{Item.Name} removed, press any key to go back to main menu");
             Console.ReadKey();
         }
@@ -219,8 +219,7 @@ namespace Labb2
         {
             input = int.Parse(inputString);
             vehicles.Find(x => x.Name == Item.Name).Speed = input;
-
-
+            
             Console.WriteLine($"{Item.Name} speed changed, press any key to go back to main menu");
             Console.ReadKey();
             Console.Clear();
