@@ -176,9 +176,9 @@ namespace Labb2
         public static void ShowSpecificVehicle(List<int> list, string vehicle, string speedUnit)
         {
             input = int.Parse(inputString);
-            i = input;
+            
 
-            Console.WriteLine("-- {0} {1} --", vehicle, list.IndexOf(i));
+            Console.WriteLine($"-- {vehicle} {input} --");
             Console.WriteLine($"Speed: {list[i]} {speedUnit}");
             Console.WriteLine("----------------");
             Console.WriteLine($"Please enter a new speed(0-100) or - to remove {vehicle}");
