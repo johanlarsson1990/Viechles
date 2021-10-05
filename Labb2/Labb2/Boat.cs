@@ -6,26 +6,31 @@ using System.Threading.Tasks;
 
 namespace Labb2
 {
-    public class Boat
+    public class Boat : IVehicle
     {
+        public string Name { get; set; }
         public int Speed { get; set; }
-
-        public Boat(int speed)
+        public Vehicle type { get; set; }
+        public static int Count = 0;
+        public Boat(Random rnd)
         {
-            Speed = speed;
+            Count = Count + 1;
+            Name = Vehicle.Boat + " " + Count;
+            type = Vehicle.Boat;
+            Speed = rnd.Next(10, 100);
         }
 
-        public static List<int> listOfBoats = new List<int>();
+        // public static List<int> listOfBoats = new List<int>();
 
-        public static void CreateList(int input)
-        {
+        //public static void CreateList(int input)
+        //{
 
-            var random = new Random();
+        //    var random = new Random();
 
-            for (int i = 0; i < input; i++)
-            {
-                listOfBoats.Add(random.Next(10, 100));
-            }
-        }
+        //    for (int i = 0; i < input; i++)
+        //    {
+        //        listOfBoats.Add(random.Next(10, 100));
+        //    }
+        //}
     }
 }

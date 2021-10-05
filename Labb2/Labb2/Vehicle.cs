@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Labb2
 {
-    public interface IVehicle
+    public enum Vehicle
     {
-        string Name { get; set; }
-        int Speed { get; set; }
-        Vehicle type { get; set; }
+        Car = 1,
+        Boat = 2,
+        Motorcycle = 3
+        
     }
 }

@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Labb2
 {
-    enum Vehicle
-    {
-        car = 1,
-        boat = 2,
-        motorcycle = 3,
-        allVehicle = 4
-    }
+    
+
     class Program
     {
+        public static List<IVehicle> filterV = new List<IVehicle>();
+        public static List<IVehicle> vehicles = new List<IVehicle>();
+        public static IVehicle Item;
         public static int input;
         public static string inputString;
         public static int i;
@@ -30,23 +28,27 @@ namespace Labb2
 
             Console.WriteLine("----Welcome to Vehicles!----\n" +
                               "You're going to create an optional number of three specific\n" +
-                              "vehicle types, cars, boats and motorcycles.\n" +
+                              "vehicle types, Cars, Boats and Motorcycles.\n" +
                               "Ready? Please press enter!");
             Console.ReadLine();
             Console.Clear();
 
 
             Console.WriteLine("How many Cars do you want to create?");
-            Car.CreateList(int.Parse(Console.ReadLine()));
+            AddVehicle(int.Parse(Console.ReadLine()), Vehicle.Car);
+            //Car.CreateList(int.Parse(Console.ReadLine()));
             Console.Clear();
 
             Console.WriteLine("How many Boats do you want to create?");
-            Boat.CreateList(int.Parse(Console.ReadLine()));
+            AddVehicle(int.Parse(Console.ReadLine()), Vehicle.Boat);
+            //Boat.CreateList(int.Parse(Console.ReadLine()));
+            Console.Clear();
+            
+            Console.WriteLine("How many Motorcycles do you want to create?");
+            AddVehicle(int.Parse(Console.ReadLine()), Vehicle.Motorcycle);
+            //Motorcycle.CreateList(int.Parse(Console.ReadLine()));
             Console.Clear();
 
-            Console.WriteLine("How many Motorcycles do you want to create?");
-            Motorcycle.CreateList(int.Parse(Console.ReadLine()));
-            Console.Clear();
 
 
             // while
@@ -63,86 +65,89 @@ namespace Labb2
                 switch (input)
                 {
                     case 1:
-
-                             WriteList(Car.listOfCars, "Car", "mph");
+                        //Skriver ut alla Car's
+                             WriteList(vehicles.FindAll(x => x.type == Vehicle.Car), "Car", "mph");
 
                         if (inputString == "+")
                         {
-                              AddVehicle(Car.listOfCars, "Car");
+                            AddVehicle(1, Vehicle.Car);
                               continue;
                         }
 
                         else
                         {
-                              ShowSpecificVehicle(Car.listOfCars, "Car", "mph");
+                              ShowSpecificVehicle(Item, "mph");
 
                             if (inputString == "-")
                             {
-                                RemoveVehicle(Car.listOfCars, "Car", "mph");
+                                RemoveVehicle(Item);
                                 continue;
                             }
                             else
                             {
-                                ChangeSpeed(Car.listOfCars, "Car", "mph");
+                                ChangeSpeed(Item);
                                 continue;
                             }
                         }
 
                         break;
                     case 2:
-                               WriteList(Boat.listOfBoats, "Boat", "knots");
+                        //Skriver ut alla Boat's
+                               WriteList(vehicles.FindAll(x => x.type == Vehicle.Boat), "Boat", "knots");
 
 
                         if (inputString == "+")
                         {
-                               AddVehicle(Boat.listOfBoats, "Boat");
+                               AddVehicle(1, Vehicle.Boat);
                                continue;
                         }
 
                         else
                         {
-                               ShowSpecificVehicle(Boat.listOfBoats, "Boat", "knots");
+                               ShowSpecificVehicle(Item, "knots");
 
                             if (inputString == "-")
                             {
-                                RemoveVehicle(Boat.listOfBoats, "Boat", "knots");
+                                RemoveVehicle(Item);
                                 continue;
                             }
                             else
                             {
-                                ChangeSpeed(Boat.listOfBoats, "Boat", "knots");
+                                ChangeSpeed(Item);
                                 continue;
                             }
                         }
                         break;
                     case 3:
-                                WriteList(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+                        //Skriver ut alla Motorcycle's
+                                WriteList(vehicles.FindAll(x => x.type == Vehicle.Motorcycle), "Motorcycle", "km/h");
 
 
                         if (inputString == "+")
                         {
-                                AddVehicle(Motorcycle.listOfMotorcycles, "Motorcycle");
+                                AddVehicle(1, Vehicle.Motorcycle);
                                continue;
                         }
 
                         else
                         {
-                                ShowSpecificVehicle(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+                                ShowSpecificVehicle(Item, "km/h");
 
                             if (inputString == "-")
                             {
-                                RemoveVehicle(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+                                RemoveVehicle(Item);
                                 continue;
                             }
                             else
                             {
-                                ChangeSpeed(Motorcycle.listOfMotorcycles, "Motorcycle", "km/h");
+                                ChangeSpeed(Item);
                                 continue;
                             }
                         }
                         break;
                     case 4:
                         // skriver ut alla listor i m/s
+                      
                         break;
                     default:
                         break;
@@ -151,58 +156,76 @@ namespace Labb2
             }
 
         }
-        public static void WriteList(List<int> list, string vehicle, string speedUnit)
+        public static void WriteList(List<IVehicle> list, string vehicle, string speedUnit)
         {
+            
             Console.WriteLine($"-- {list.Count} {vehicle}s in stock --");
             foreach (var i in list)
             {
-                Console.WriteLine($"Car {list.IndexOf(i)} - {i} {speedUnit}");
+                var index = list.IndexOf(i)+1;
+                //index = index + 1;
+                Console.WriteLine($"{i.Name} - {i.Speed} {speedUnit}");
 
             }
             Console.WriteLine($"----------------");
-            Console.WriteLine($"Please select {vehicle} to change (0-{list.Count - 1}) or enter + to add a new {vehicle}");
+            Console.WriteLine($"Please select {vehicle} to change (1-{list.Count}) or enter + to add a new {vehicle}");
             inputString = Console.ReadLine();
+            if (inputString != "+")
+                Item = list[int.Parse(inputString)-1];
             Console.Clear();
         }
 
-        public static void AddVehicle(List<int> list, string vehicle)
+        public static void AddVehicle(int addera, Vehicle type)
         {
-            Car.listOfCars.Add(random.Next(10, 100));
-            Console.WriteLine($"{vehicle} added, press any key to go back to main menu");
-            Console.ReadKey();
-            Console.Clear();
+            var random = new Random();
+            for (int i = 0; i < addera; i++)
+            {
+                
+                random.Next(random.Next(10, 100));
+                if(type == Vehicle.Motorcycle)
+                    vehicles.Add(new Motorcycle(random));
+                if (type == Vehicle.Car)
+                    vehicles.Add(new Car(random));
+                if (type == Vehicle.Boat)
+                    vehicles.Add(new Boat(random));
+            }
+
+           // Console.WriteLine($"{type} added, press any key to go back to main menu");
+           // Console.ReadKey();
+           // Console.Clear();
         }
 
-        public static void ShowSpecificVehicle(List<int> list, string vehicle, string speedUnit)
+        public static void ShowSpecificVehicle(IVehicle Item, string speedUnit)
         {
             input = int.Parse(inputString);
             
 
-            Console.WriteLine($"-- {vehicle} {input} --");
-            Console.WriteLine($"Speed: {list[i]} {speedUnit}");
+            Console.WriteLine($"-- {Item.Name} {input} --");
+            Console.WriteLine($"Speed: {Item.Speed} {speedUnit}");
             Console.WriteLine("----------------");
-            Console.WriteLine($"Please enter a new speed(0-100) or - to remove {vehicle}");
+            Console.WriteLine($"Please enter a new speed(0-100) or - to remove {Item.Name}");
             inputString = Console.ReadLine();
             Console.Clear();
         }
 
-        public static void RemoveVehicle(List<int> list, string vehicle, string speedUnit)
+        public static void RemoveVehicle(IVehicle Item)
         {
-            Car.listOfCars.Remove(list[i]);
-            Console.WriteLine($"{vehicle} removed, press any key to go back to main menu");
+            vehicles.Remove(Item);
+            Console.WriteLine($"{Item.Name} removed, press any key to go back to main menu");
             Console.ReadKey();
         }
 
-        public static void ChangeSpeed(List<int> list, string vehicle, string speedUnit)
+        public static void ChangeSpeed(IVehicle Item)
         {
             input = int.Parse(inputString);
+            vehicles.Find(x => x.Name == Item.Name).Speed = input;
 
-            list[i] = input;
 
-
-            Console.WriteLine("Car speed changed, press any key to go back to main menu");
+            Console.WriteLine($"{Item.Name} speed changed, press any key to go back to main menu");
             Console.ReadKey();
             Console.Clear();
         }
+
+      
     }
 }
