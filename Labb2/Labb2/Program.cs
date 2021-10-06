@@ -177,14 +177,8 @@ namespace Labb2
             inputString = felhantering(Console.ReadLine());
             if (inputString != "+")
             {
-                
                 Item = list[int.Parse(felhantering(inputString, list.Count,true)) - 1];
             }
-                    
-            
-            
-            
-
             Console.Clear();
         }
 
@@ -207,7 +201,6 @@ namespace Labb2
                 Console.ReadKey();
                 Console.Clear();
             }
-
         }
 
         public static void ShowSpecificVehicle(IVehicle Item, string speedUnit)
@@ -221,7 +214,6 @@ namespace Labb2
             inputString = felhantering(Console.ReadLine());
             //if (inputString != "-")
             //    input = int.Parse(felhantering(inputString));
-            
             Console.Clear();
         }
 
