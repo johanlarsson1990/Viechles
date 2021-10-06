@@ -162,7 +162,6 @@ namespace Labb2
                 }
 
                 
-
             }
 
             else if (vehicleToPrint is Boat)
