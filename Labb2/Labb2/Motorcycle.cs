@@ -17,13 +17,16 @@ namespace Labb2
             Count = Count + 1;
             Name = Vehicle.Motorcycle + " " + Count;
             type = Vehicle.Motorcycle;
-            Speed = SetSpeed(rnd);
+            Speed = rnd.Next(10, 100);
         }
-        public int SetSpeed(Random rnd)
+        public int setSpeed(int newspeed)
         {
-            return rnd.Next(10, 100);
+            return Speed = newspeed;
         }
-
+        public int getSpeed()
+        {
+            return Speed;
+        }
         //public static List<int> listOfMotorcycles = new List<int>();
         //public static void CreateList(int input)
         //{
