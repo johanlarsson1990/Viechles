@@ -17,7 +17,12 @@ namespace Labb2
             Count = Count + 1;
             Name = Vehicle.Car + " " + Count;
             type = Vehicle.Car;
-            Speed = rnd.Next(10, 100);
+            Speed = SetSpeed(rnd);
+        }
+
+        public int SetSpeed(Random rnd)
+        {
+            return rnd.Next(10, 100);
         }
          //public static List<int> listOfCars = new List<int>();
 
