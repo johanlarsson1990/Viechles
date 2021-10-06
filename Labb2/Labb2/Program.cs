@@ -18,6 +18,7 @@ namespace Labb2
         public static string inputString;
         public static int i;
         public static Random random = new Random();
+        public static Boat boat = new Boat();
         static void Main(string[] args)
         {
             Menu();
@@ -147,7 +148,7 @@ namespace Labb2
                         }
                         break;
                     case 4:
-                        PrintSpeedInMetersPerSecond(I);
+                        PrintSpeedInMetersPerSecond(vehicles.FindAll(x => x.type == Vehicle.Boat));
                         break;
                     default:
                         break;
@@ -184,7 +185,7 @@ namespace Labb2
                 if (type == Vehicle.Car)
                     vehicles.Add(new Car(random));
                 if (type == Vehicle.Boat)
-                    vehicles.Add(new Boat(random));
+                    vehicles.Add(new Boat());
             }
             if (write)
             {
@@ -225,15 +226,23 @@ namespace Labb2
             Console.Clear();
         }
 
-        public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
+        public static void PrintSpeedInMetersPerSecond(List<IVehicle> vehicleToPrint)
         {
             const double mpH = 0.447;
             const double knots = 0.514;
             const double kmH = 0.278;
 
-            if (vehicleToPrint is Car)
+            if (vehicleToPrint )
             {
+                
 
+                foreach (var item in vehicleToPrint)
+                {
+                    Console.WriteLine($" {Item.Speed * knots} item * knots ");
+                    
+                }
+
+                Console.ReadLine();
             }
         }
 

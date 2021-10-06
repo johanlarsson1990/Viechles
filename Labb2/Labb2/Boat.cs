@@ -12,8 +12,10 @@ namespace Labb2
         public int Speed { get; set; }
         public Vehicle type { get; set; }
         public static int Count = 0;
-        public Boat(Random rnd)
+        
+        public Boat()
         {
+            Random rnd = new Random();
             Count = Count + 1;
             Name = Vehicle.Boat + " " + Count;
             type = Vehicle.Boat;
