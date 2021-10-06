@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -146,8 +147,7 @@ namespace Labb2
                         }
                         break;
                     case 4:
-                        // skriver ut alla listor i m/s
-                      
+                        PrintSpeedInMetersPerSecond(I);
                         break;
                     default:
                         break;
@@ -223,6 +223,18 @@ namespace Labb2
             Console.WriteLine($"{Item.Name} speed changed, press any key to go back to main menu");
             Console.ReadKey();
             Console.Clear();
+        }
+
+        public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
+        {
+            const double mpH = 0.447;
+            const double knots = 0.514;
+            const double kmH = 0.278;
+
+            if (vehicleToPrint is Car)
+            {
+
+            }
         }
 
       
