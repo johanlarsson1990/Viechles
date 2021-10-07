@@ -11,5 +11,9 @@ namespace Labb2
         string Name { get; set; }
         int Speed { get; set; }
         Vehicle type { get; set; }
+
+        int setSpeed(int newspeed);
+        int getSpeed();
+
     }
 }

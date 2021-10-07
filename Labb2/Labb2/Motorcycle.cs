@@ -19,7 +19,14 @@ namespace Labb2
             type = Vehicle.Motorcycle;
             Speed = rnd.Next(10, 100);
         }
-
+        public int setSpeed(int newspeed)
+        {
+            return Speed = newspeed;
+        }
+        public int getSpeed()
+        {
+            return Speed;
+        }
         //public static List<int> listOfMotorcycles = new List<int>();
         //public static void CreateList(int input)
         //{
