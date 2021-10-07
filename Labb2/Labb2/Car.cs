@@ -21,10 +21,11 @@ namespace Labb2
             Speed = rnd.Next(10, 100);
         }
 
-        public int setSpeed(int newspeed)
+        public int setSpeed(int newSpeed)
         {
-            return Speed = newspeed;
+            return Speed = newSpeed;
         }
+
         public int getSpeed()
         {
             return Speed;

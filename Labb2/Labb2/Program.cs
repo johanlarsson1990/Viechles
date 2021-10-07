@@ -18,29 +18,32 @@ namespace Labb2
         
         static void Main(string[] args)
         {
+            Welcome();
             Menu();
-
-            Console.ReadLine();
         }
+
+        /// <summary>
+        /// Calls the menu choice after valid input of each vehicle type
+        /// calls specific methods based on the users input until the user chose to quit the program
+        /// </summary>
         public static void Menu()
         {
-            Welcome();
-
-            // while
-            while (true)
+            var run = true;
+            while (run)
             {
                 Console.WriteLine("-- Please select --\n" +
                                   "1. Print/Create Cars\n" +
                                   "2. Print/Create Boats\n" +
                                   "3. Print/create Motorcycles\n" +
-                                  "4. Print all vehicles in m/s");
-                errorHandeling(Console.ReadLine(),null,true);
+                                  "4. Print all vehicles in m/s\n" +
+                                  "5. Quit program");
+
+                ErrorHandling(Console.ReadLine(),null,true);
                 Console.Clear();
 
                 switch (input)
                 {
                     case 1:
-                        //Skriver ut alla Car's
                         WriteList(vehicles.FindAll(x => x.type == Vehicle.Car), "Car", "mph");
 
                         if (inputString == "+")
@@ -48,7 +51,6 @@ namespace Labb2
                             AddVehicle(1, Vehicle.Car, true);
                             continue;
                         }
-
                         else
                         {
                             ShowSpecificVehicle(Item, "mph");
@@ -65,18 +67,14 @@ namespace Labb2
                             }
                         }
 
-                        break;
                     case 2:
-                        //Skriver ut alla Boat's
                         WriteList(vehicles.FindAll(x => x.type == Vehicle.Boat), "Boat", "knots");
-
 
                         if (inputString == "+")
                         {
                             AddVehicle(1, Vehicle.Boat, true);
                             continue;
                         }
-
                         else
                         {
                             ShowSpecificVehicle(Item, "knots");
@@ -92,18 +90,15 @@ namespace Labb2
                                 continue;
                             }
                         }
-                        break;
+                        
                     case 3:
-                        //Skriver ut alla Motorcycle's
                         WriteList(vehicles.FindAll(x => x.type == Vehicle.Motorcycle), "Motorcycle", "km/h");
-
-
+                        
                         if (inputString == "+")
                         {
                             AddVehicle(1, Vehicle.Motorcycle, true);
                             continue;
                         }
-
                         else
                         {
                             ShowSpecificVehicle(Item, "km/h");
@@ -119,7 +114,7 @@ namespace Labb2
                                 continue;
                             }
                         }
-                        break;
+
                     case 4:
                         // skriver ut alla listor i m/s
                         vehicles = vehicles.OrderBy(x => x.Name).ToList();
@@ -128,18 +123,26 @@ namespace Labb2
                         {
                             PrintSpeedInMetersPerSecond(item);
                         }
-                        Console.WriteLine("Press any key to return to main menu");
+
+                        Console.WriteLine("\n" +
+                                          "----------------\n" +
+                                          "Press any key to return to main menu");
                         Console.ReadKey();
                         Console.Clear();
                         //PrintSpeedInMetersPerSecond();
                         break;
-                    default:
+                    case 5:
+                        run = false;
                         break;
-
                 }
             }
 
         }
+        
+        
+        /// <summary>
+        /// Say welcome to user, explains the task, let the user input an optional number of each vehicle-type.
+        /// </summary>
         public static void Welcome ()
         {
             Console.WriteLine("----Welcome to Vehicles!----\n" +
@@ -150,22 +153,56 @@ namespace Labb2
             Console.Clear();
 
             Console.WriteLine("How many Cars do you want to create?");
-            errorHandeling(Console.ReadLine());
-            AddVehicle(input, Vehicle.Car);
+            ErrorHandling(Console.ReadLine()); 
+            AddVehicle(input, Vehicle.Car);  
             //AddVehicle(int.Parse(Console.ReadLine()), Vehicle.Car);
             //AddVehicle(int.Parse(felhantering(Console.ReadLine())), Vehicle.Car);
             Console.Clear();
 
             Console.WriteLine("How many Boats do you want to create?");
-            errorHandeling(Console.ReadLine());
+            ErrorHandling(Console.ReadLine());
             AddVehicle(input, Vehicle.Boat);
             Console.Clear();
 
             Console.WriteLine("How many Motorcycles do you want to create?");
-            errorHandeling(Console.ReadLine());
+            ErrorHandling(Console.ReadLine());
             AddVehicle(input, Vehicle.Motorcycle);
             Console.Clear();
         }
+
+        /// <summary>
+        /// Adds vehicle by chosen type in the public Ivehicle list.
+        /// </summary>
+        /// <param name="addera"> how many to add to list </param>
+        /// <param name="type"> type of vehicle </param>
+        /// <param name="write"></param>
+        public static void AddVehicle(int addera, Vehicle type, bool write = false)
+        {
+            var random = new Random();
+
+            for (int i = 0; i < addera; i++)
+            {
+                if (type == Vehicle.Motorcycle)
+                    vehicles.Add(new Motorcycle(random));
+                if (type == Vehicle.Car)
+                    vehicles.Add(new Car(random));
+                if (type == Vehicle.Boat)
+                    vehicles.Add(new Boat(random));
+            }
+            if (write)
+            {
+                Console.WriteLine($"{type} added, press any key to go back to main menu");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+
+        /// <summary>
+        /// Writes out a list of vehicle, by chosen type
+        /// </summary>
+        /// <param name="list"> takes in the public Ivehicle list</param>
+        /// <param name="vehicle"> </param>
+        /// <param name="speedUnit"></param>
         public static void WriteList(List<IVehicle> list, string vehicle, string speedUnit)
         {
 
@@ -181,7 +218,7 @@ namespace Labb2
             Console.WriteLine($"----------------");
             Console.WriteLine($"Please select {vehicle} to change (1-{list.Count}) or enter + to add a new {vehicle}");
             //inputString = felhantering(Console.ReadLine());
-            errorHandeling(Console.ReadLine(),list,false,true);
+            ErrorHandling(Console.ReadLine(),list,false,true);
             //if (inputString != "+")
             //{
             //    Item = list[int.Parse(felhantering(inputString, list.Count,true)) -1];
@@ -189,42 +226,30 @@ namespace Labb2
             Console.Clear();
         }
 
-        public static void AddVehicle(int addera, Vehicle type, bool write = false)
-        {
-            var random = new Random();
-
-            for (int i = 0; i < addera; i++)
-            {
-                if (type == Vehicle.Motorcycle)
-                    vehicles.Add(new Motorcycle(random));
-                if (type == Vehicle.Car)
-                    vehicles.Add(new Car(random));
-                if (type == Vehicle.Boat)
-                    vehicles.Add(new Boat());
-            }
-            if (write)
-            {
-                Console.WriteLine($"{type} added, press any key to go back to main menu");
-                Console.ReadKey();
-                Console.Clear();
-            }
-        }
-
+        /// <summary>
+        /// Show the chosen vehicle of the given type. For further tasks
+        /// </summary>
+        /// <param name="Item"></param>
+        /// <param name="speedUnit"></param>
         public static void ShowSpecificVehicle(IVehicle Item, string speedUnit)
         {
             //input = int.Parse(felhantering(inputString));
-            errorHandeling(inputString);
+            ErrorHandling(inputString);
             Console.WriteLine($"-- {Item.Name} --");
             Console.WriteLine($"Speed: {Item.getSpeed()} {speedUnit}");
             Console.WriteLine("----------------");
             Console.WriteLine($"Please enter a new speed(0-100) or - to remove {Item.Name}");
             //inputString = felhantering(Console.ReadLine());
-            errorHandeling(Console.ReadLine(),null,true,true);
+            ErrorHandling(Console.ReadLine(),null,true,true);
             //if (inputString != "-")
             //    input = int.Parse(felhantering(inputString));
             Console.Clear();
         }
 
+        /// <summary>
+        /// Removes the chosen vehicle from Ivehicle list 
+        /// </summary>
+        /// <param name="Item"></param>
         public static void RemoveVehicle(IVehicle Item)
         {
             vehicles.Remove(Item);
@@ -233,6 +258,10 @@ namespace Labb2
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Change the speed of the chosen vehicle
+        /// </summary>
+        /// <param name="Item"></param>
         public static void ChangeSpeed(IVehicle Item)
         {
             
@@ -244,35 +273,47 @@ namespace Labb2
             Console.Clear();
         }
 
-        public static void PrintSpeedInMetersPerSecond(IVehicle vehicletoprint)
+        /// <summary>
+        /// Convert the chosen vehicles speed unit to m/s
+        /// </summary>
+        /// <param name="vehicleToPrint"></param>
+        public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
         {
          
             double ms = 0;
            
-            if (vehicletoprint.type==Vehicle.Car)
+            if (vehicleToPrint.type==Vehicle.Car)
             {
-                ms = vehicletoprint.Speed * 0.447;
+                ms = vehicleToPrint.Speed * 0.447;
             }
             
-            else if (vehicletoprint.type==Vehicle.Boat)
+            else if (vehicleToPrint.type==Vehicle.Boat)
             {
-                ms = vehicletoprint.Speed * 0.514;
+                ms = vehicleToPrint.Speed * 0.514;
             }
 
-            else if (vehicletoprint.type==Vehicle.Motorcycle)
+            else if (vehicleToPrint.type==Vehicle.Motorcycle)
             {
-                ms = vehicletoprint.Speed * 0.278;
+                ms = vehicleToPrint.Speed * 0.278;
             }
-            Console.WriteLine($"{vehicletoprint.Name} - {ms} - m/s");
+            Console.WriteLine($"{vehicleToPrint.Name} - {ms} - m/s");
         }
-        public static void errorHandeling(string error, List<IVehicle> fordon = null,bool menyOrRemove=false,bool add=false)
+
+        /// <summary>
+        /// Takes care of exception handling, checks if the user enter a valid input for the question.   
+        /// </summary>
+        /// <param name="error"></param>
+        /// <param name="fordon"></param>
+        /// <param name="menuOrRemove"></param>
+        /// <param name="add"></param>
+        public static void ErrorHandling(string error, List<IVehicle> fordon = null,bool menuOrRemove=false,bool add=false)
         {
-            int output = 0;
-            bool wrong = true;
+            var output = 0;
+            var wrong = true;
             while (wrong)
             {
                 var test = int.TryParse(error, out output);
-                if (menyOrRemove && error == "-" && add || error == "+" && add && menyOrRemove == false)
+                if (menuOrRemove && error == "-" && add || error == "+" && add && menuOrRemove == false)
                 {
                     inputString = error;
                     wrong = false;
@@ -284,7 +325,7 @@ namespace Labb2
                     inputString = error;
                     wrong = false;
                 }
-                else if (menyOrRemove && output >= 1 && output < 4)
+                else if (menuOrRemove && output >= 1 && output < 4)
                 {
                     input = output;
                     wrong = false;
@@ -303,6 +344,9 @@ namespace Labb2
                 
             }
         }
+        
+        
+        
     
       
         // Samma funktion som print+case4 på ett ställe, mer lättläsligt!!!!!!!!!!!!!!!!!

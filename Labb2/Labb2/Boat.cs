@@ -13,18 +13,18 @@ namespace Labb2
         public Vehicle type { get; set; }
         public static int Count = 0;
         
-        public Boat()
+        public Boat(Random rnd)
         {
-            Random rnd = new Random();
+            
             Count = Count + 1;
             Name = Vehicle.Boat + " " + Count;
             type = Vehicle.Boat;
             Speed = rnd.Next(10, 100);
         }
 
-        public int setSpeed(int newspeed)
+        public int setSpeed(int newSpeed)
         {
-            return Speed = newspeed;
+            return Speed = newSpeed;
         }
         public int getSpeed()
         {

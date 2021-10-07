@@ -12,7 +12,7 @@ namespace Labb2
         int Speed { get; set; }
         Vehicle type { get; set; }
 
-        int setSpeed(int newspeed);
+        int setSpeed(int newSpeed);
         int getSpeed();
 
     }
