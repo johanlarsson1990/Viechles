@@ -155,7 +155,7 @@ namespace Labb2
 
             if (vehicleToPrint is Car)
             {
-                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} {vehicleToPrint.VehicleType}s in stock --");
+                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} Cars in stock --");
                 foreach (var i in vehicleToPrint.VehicleList)
                 {
                     Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * mpH, 2)} m/s"); 
@@ -166,7 +166,7 @@ namespace Labb2
 
             else if (vehicleToPrint is Boat)
             {
-                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} {vehicleToPrint.VehicleType}s in stock --");
+                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} Boats in stock --");
                 foreach (var i in vehicleToPrint.VehicleList)
                 {
                     Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * knots, 2)} m/s");
@@ -176,7 +176,7 @@ namespace Labb2
 
             else if (vehicleToPrint is Motorcycle)
             {
-                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} {vehicleToPrint.VehicleType}s in stock --");
+                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} Motorcycles in stock --");
                 foreach (var i in vehicleToPrint.VehicleList)
                 {
                     Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * kmH, 2)} m/s");
