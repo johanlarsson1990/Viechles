@@ -38,6 +38,7 @@ namespace Labb2
 
          //    var random = new Random();
 
+            var random = new Random();
 
 
          //    for (int i = 0; i < input; i++)
@@ -47,6 +48,8 @@ namespace Labb2
 
          //    }
          //}
-        
+
+            }
+        }
     }
 }
