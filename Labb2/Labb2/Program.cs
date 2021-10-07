@@ -129,7 +129,6 @@ namespace Labb2
                                           "Press any key to return to main menu");
                         Console.ReadKey();
                         Console.Clear();
-                        //PrintSpeedInMetersPerSecond();
                         break;
                     case 5:
                         run = false;
@@ -154,9 +153,7 @@ namespace Labb2
 
             Console.WriteLine("How many Cars do you want to create?");
             ErrorHandling(Console.ReadLine()); 
-            AddVehicle(input, Vehicle.Car);  
-            //AddVehicle(int.Parse(Console.ReadLine()), Vehicle.Car);
-            //AddVehicle(int.Parse(felhantering(Console.ReadLine())), Vehicle.Car);
+            AddVehicle(input, Vehicle.Car);
             Console.Clear();
 
             Console.WriteLine("How many Boats do you want to create?");
@@ -274,7 +271,7 @@ namespace Labb2
         }
 
         /// <summary>
-        /// Convert the chosen vehicles speed unit to m/s
+        /// Convert the chosen vehicles speed unit to m/s and display  it on the console.
         /// </summary>
         /// <param name="vehicleToPrint"></param>
         public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
