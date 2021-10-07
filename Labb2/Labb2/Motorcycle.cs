@@ -27,16 +27,6 @@ namespace Labb2
         {
             return Speed;
         }
-        //public static List<int> listOfMotorcycles = new List<int>();
-        //public static void CreateList(int input)
-        //{
-
-        //    var random = new Random();
-
-        //    for (int i = 0; i < input; i++)
-        //    {
-        //        listOfMotorcycles.Add(random.Next(10, 100));
-        //    }
-        //}
+        
     }
 }

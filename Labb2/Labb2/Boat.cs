@@ -15,7 +15,7 @@ namespace Labb2
 
         public Boat(Random rnd)
         {
-            
+
             Count = Count + 1;
             Name = Vehicle.Boat + " " + Count;
             type = Vehicle.Boat;
@@ -26,21 +26,10 @@ namespace Labb2
         {
             return Speed = newSpeed;
         }
+
         public int getSpeed()
         {
             return Speed;
         }
-        // public static List<int> listOfBoats = new List<int>();
-
-        //public static void CreateList(int input)
-        //{
-
-        //    var random = new Random();
-
-        //    for (int i = 0; i < input; i++)
-        //    {
-        //        listOfBoats.Add(random.Next(10, 100));
-        //    }
-        //}
     }
 }
