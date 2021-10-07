@@ -330,7 +330,7 @@ namespace Labb2
                     input = output;
                     wrong = false;
                 }
-                else if(test && output >= 0 && output < 100 && fordon == null)
+                else if(test && output >= 0 && output <= 100 && fordon == null)
                 {
                     input = output;
                     inputString = error;
