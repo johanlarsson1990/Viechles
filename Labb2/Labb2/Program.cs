@@ -323,7 +323,7 @@ namespace Labb2
                     inputString = error;
                     wrong = false;
                 }
-                else if (menuOrRemove && output >= 1 && output < 4)
+                else if (menuOrRemove && output >= 1 && output <= 5)
                 {
                     input = output;
                     wrong = false;
