@@ -119,6 +119,7 @@ namespace Labb2
                         // skriver ut alla listor i m/s
                         vehicles = vehicles.OrderBy(x => x.Name).ToList();
 
+                        Console.WriteLine("--Vehicles in m/s--");
                         foreach (var item in vehicles)
                         {
                             PrintSpeedInMetersPerSecond(item);
@@ -316,7 +317,7 @@ namespace Labb2
                     wrong = false;
 
                 }
-                else if (fordon != null && output >= 0 && output < fordon.Count && test == true)
+                else if (fordon != null && output >= 0 && output <= fordon.Count && test == true)
                 {
                     Item = fordon[output-1];
                     inputString = error;

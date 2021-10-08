@@ -11,6 +11,7 @@ namespace Labb2
         public string Name { get; set; }
         public int Speed { get; set; }
         public Vehicle type { get; set; }
+
         public static int Count = 0;
         public Motorcycle(Random rnd)
         {
