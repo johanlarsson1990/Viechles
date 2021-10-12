@@ -23,6 +23,34 @@ namespace Labb2
         }
 
         /// <summary>
+        /// Say welcome to user, explains the task, let the user input an optional number of each vehicle-type.
+        /// </summary>
+        public static void Welcome()
+        {
+            Console.WriteLine("----Welcome to Vehicles!----\n" +
+                              "You're going to create an optional number of three specific\n" +
+                              "vehicle types, Cars, Boats and Motorcycles.\n" +
+                              "Ready? Please press enter!");
+            Console.ReadLine();
+            Console.Clear();
+
+            Console.WriteLine("How many Cars do you want to create?");
+            ErrorHandling(Console.ReadLine());
+            AddVehicle(input, Vehicle.Car);
+            Console.Clear();
+
+            Console.WriteLine("How many Boats do you want to create?");
+            ErrorHandling(Console.ReadLine());
+            AddVehicle(input, Vehicle.Boat);
+            Console.Clear();
+
+            Console.WriteLine("How many Motorcycles do you want to create?");
+            ErrorHandling(Console.ReadLine());
+            AddVehicle(input, Vehicle.Motorcycle);
+            Console.Clear();
+        }
+
+        /// <summary>
         /// Calls the menu choice after valid input of each vehicle type
         /// calls specific methods based on the users input until the user chose to quit the program
         /// </summary>
@@ -141,34 +169,6 @@ namespace Labb2
         
         
         /// <summary>
-        /// Say welcome to user, explains the task, let the user input an optional number of each vehicle-type.
-        /// </summary>
-        public static void Welcome ()
-        {
-            Console.WriteLine("----Welcome to Vehicles!----\n" +
-                              "You're going to create an optional number of three specific\n" +
-                              "vehicle types, Cars, Boats and Motorcycles.\n" +
-                              "Ready? Please press enter!");
-            Console.ReadLine();
-            Console.Clear();
-
-            Console.WriteLine("How many Cars do you want to create?");
-            ErrorHandling(Console.ReadLine()); 
-            AddVehicle(input, Vehicle.Car);
-            Console.Clear();
-
-            Console.WriteLine("How many Boats do you want to create?");
-            ErrorHandling(Console.ReadLine());
-            AddVehicle(input, Vehicle.Boat);
-            Console.Clear();
-
-            Console.WriteLine("How many Motorcycles do you want to create?");
-            ErrorHandling(Console.ReadLine());
-            AddVehicle(input, Vehicle.Motorcycle);
-            Console.Clear();
-        }
-
-        /// <summary>
         /// Adds vehicle by chosen type in the public Ivehicle list.
         /// </summary>
         /// <param name="addera"> how many to add to list </param>
@@ -210,17 +210,11 @@ namespace Labb2
                 var index = i+1;
                 Console.WriteLine($"{index}. {list[i].Name} - {list[i].getSpeed()} {speedUnit}");
             }
-            //foreach (var i in list)
-            //    Console.WriteLine($"{i.Name} - {i.getSpeed()} {speedUnit}");
-
+            
             Console.WriteLine($"----------------");
             Console.WriteLine($"Please select {vehicle} to change (1-{list.Count}) or enter + to add a new {vehicle}");
-            //inputString = felhantering(Console.ReadLine());
             ErrorHandling(Console.ReadLine(),list,false,true);
-            //if (inputString != "+")
-            //{
-            //    Item = list[int.Parse(felhantering(inputString, list.Count,true)) -1];
-            //}
+            
             Console.Clear();
         }
 
@@ -231,16 +225,14 @@ namespace Labb2
         /// <param name="speedUnit"></param>
         public static void ShowSpecificVehicle(IVehicle Item, string speedUnit)
         {
-            //input = int.Parse(felhantering(inputString));
+            
             ErrorHandling(inputString);
             Console.WriteLine($"-- {Item.Name} --");
             Console.WriteLine($"Speed: {Item.getSpeed()} {speedUnit}");
             Console.WriteLine("----------------");
             Console.WriteLine($"Please enter a new speed(0-100) or - to remove {Item.Name}");
-            //inputString = felhantering(Console.ReadLine());
+            
             ErrorHandling(Console.ReadLine(),null,true,true);
-            //if (inputString != "-")
-            //    input = int.Parse(felhantering(inputString));
             Console.Clear();
         }
 
@@ -263,13 +255,13 @@ namespace Labb2
         public static void ChangeSpeed(IVehicle Item)
         {
             
-            //input = felhantering(inputString);
             vehicles.Find(x => x.Name == Item.Name).setSpeed(input);
 
             Console.WriteLine($"{Item.Name} speed changed, press any key to go back to main menu");
             Console.ReadKey();
             Console.Clear();
         }
+
 
         /// <summary>
         /// Convert the chosen vehicles speed unit to m/s and display  it on the console.
@@ -328,7 +320,7 @@ namespace Labb2
                     input = output;
                     wrong = false;
                 }
-                else if(test && output >= 0 && output < 100 && fordon == null)
+                else if(test && output >= 0 && output <= 100 && fordon == null)
                 {
                     input = output;
                     inputString = error;
