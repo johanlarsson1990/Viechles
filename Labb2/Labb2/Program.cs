@@ -9,18 +9,15 @@ using static Labb2.Program;
 
 namespace Labb2
 {
-    public enum EVehicle {ERROR, CAR, BOAT, MOTORCYCLE }
     class Program
     {
-        public static EVehicle vehicleInput;
+        public static EVehicle Item;
         public static int input;
         public static string inputString;
         public static int i;
-        public static Random random = new Random();
-        public static Car car = new Car();
-        public static Boat boat = new Boat();
-        public static Motorcycle motorcycle = new Motorcycle();
-        
+        public static List<IVehicle> vehicleList = new List<IVehicle>();
+
+
 
         static void Main(string[] args)
         {
@@ -40,15 +37,15 @@ namespace Labb2
 
 
             Console.WriteLine("How many Cars do you want to create?");
-            car.CreateList(int.Parse(Console.ReadLine()));
+            
             Console.Clear();
 
             Console.WriteLine("How many Boats do you want to create?");
-            boat.CreateList(int.Parse(Console.ReadLine()));
+            
             Console.Clear();
 
             Console.WriteLine("How many Motorcycles do you want to create?");
-            motorcycle.CreateList(int.Parse(Console.ReadLine()));
+            
             Console.Clear();
 
 
@@ -67,26 +64,19 @@ namespace Labb2
                 
                 switch (input)
                 {
-                    case 1:
+                    case (int)EVehicle.CAR:
                         
-                        VehicleTypeChoice(car);
+                        
                         break;
-                    case 2:
-                        VehicleTypeChoice(boat);
+                    case (int)EVehicle.BOAT:
+                        
                         break;
-                    case 3:
-                        VehicleTypeChoice(motorcycle);
+                    case (int)EVehicle.MOTORCYCLE:
+                        
                         break;
                     case 4:
-                        var meterPerSecondList = new List<IVehicle>
-                        {
-                            car,
-                            boat,
-                            motorcycle
-                        };
-                        PrintSpeedInMetersPerSecond(car);
-                        PrintSpeedInMetersPerSecond(boat);
-                        PrintSpeedInMetersPerSecond(motorcycle);
+                        
+                        
 
                         Console.WriteLine("Press any key to go back to main menu.");
                         Console.ReadKey();
@@ -101,92 +91,55 @@ namespace Labb2
 
         }
 
-        public static void VehicleTypeChoice(IVehicle type)
+        public static void AddVehicle()
         {
-            
-            
-            type.WriteList();
-
-            inputString = Console.ReadLine();
-            Console.Clear();
-            if (inputString == "+")
-            {
-                type.AddVehicle();
-
-                Console.ReadKey();
-                Console.Clear();
-                //continue;
-            }
-
-            else
-            {
-                input = int.Parse(inputString);
-                i = input;
-
-                type.IndexedVehicle(i);
-
-                inputString = Console.ReadLine();
-                Console.Clear();
-
-                if (inputString == "-")
-                {
-                    type.RemoveVehicle(i);
-                    Console.ReadKey();
-                    Console.Clear();
-                    //continue;
-                }
-                else
-                {
-                    input = int.Parse(inputString);
-                    type.Speed = input;
-                    type.ChangeSpeed(i);
-                    Console.ReadKey();
-                    //continue;
-                }
-            }
+            if
         }
 
-        public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
-        {
-            const double mpH = 0.447;
-            const double knots = 0.514;
-            const double kmH = 0.278;
-            
 
-            if (vehicleToPrint is Car)
-            {
-                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} Cars in stock --");
-                foreach (var i in vehicleToPrint.VehicleList)
-                {
-                    Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * mpH, 2)} m/s"); 
-                }
+        //public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
+        //{
+        //    const double mpH = 0.447;
+        //    const double knots = 0.514;
+        //    const double kmH = 0.278;
 
-                
-            }
 
-            else if (vehicleToPrint is Boat)
-            {
-                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} Boats in stock --");
-                foreach (var i in vehicleToPrint.VehicleList)
-                {
-                    Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * knots, 2)} m/s");
-                }
+        //    if (vehicleToPrint is Car)
+        //    {
+        //        Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} Cars in stock --");
+        //        foreach (var i in vehicleToPrint.VehicleList)
+        //        {
+        //            Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * mpH, 2)} m/s"); 
+        //        }
 
-            }
 
-            else if (vehicleToPrint is Motorcycle)
-            {
-                Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} Motorcycles in stock --");
-                foreach (var i in vehicleToPrint.VehicleList)
-                {
-                    Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * kmH, 2)} m/s");
-                }
-            }
+        //    }
 
-            Console.WriteLine($"\n" +
-                              $"-----------------\n" +
-                              $"");
-        }
-        
+        //    else if (vehicleToPrint is Boat)
+        //    {
+        //        Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} Boats in stock --");
+        //        foreach (var i in vehicleToPrint.VehicleList)
+        //        {
+        //            Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * knots, 2)} m/s");
+        //        }
+
+        //    }
+
+        //    else if (vehicleToPrint is Motorcycle)
+        //    {
+        //        Console.WriteLine($"-- {vehicleToPrint.VehicleList.Count} Motorcycles in stock --");
+        //        foreach (var i in vehicleToPrint.VehicleList)
+        //        {
+        //            Console.WriteLine($"{vehicleToPrint.VehicleType} {vehicleToPrint.VehicleList.IndexOf(i)} - {Math.Round(i * kmH, 2)} m/s");
+        //        }
+        //    }
+
+        //    Console.WriteLine($"\n" +
+        //                      $"-----------------\n" +
+        //                      $"");
+        //}
+
     }
+
+    
 }

@@ -7,6 +7,6 @@ namespace Labb2
         public int Speed { get; set; }
         public string VehicleType { get; set; }
         public string SpeedUnit { get; set; }
-        public List<int> VehicleList { get; set; }
+        public EVehicle Type { get; set; }
     }
 }
