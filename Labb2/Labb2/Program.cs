@@ -9,6 +9,7 @@ using static Labb2.Program;
 
 namespace Labb2
 {
+    public class 
     class Program
     {
         public static List<IVehicle> vehicles = new List<IVehicle>();
