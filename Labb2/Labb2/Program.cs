@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using static Labb2.Program;
 
 namespace Labb2
 {
-    public class 
+
+
     class Program
     {
         public static List<IVehicle> vehicles = new List<IVehicle>();
         public static IVehicle Item;
         public static int input;
         public static string inputString;
-
+        
         static void Main(string[] args)
         {
             Welcome();
@@ -67,7 +66,7 @@ namespace Labb2
                                   "4. Print all vehicles in m/s\n" +
                                   "5. Quit program");
 
-                ErrorHandling(Console.ReadLine(), null, true);
+                ErrorHandling(Console.ReadLine(),null,true);
                 Console.Clear();
 
                 switch (input)
@@ -119,10 +118,10 @@ namespace Labb2
                                 continue;
                             }
                         }
-
+                        
                     case 3:
                         WriteList(vehicles.FindAll(x => x.type == Vehicle.Motorcycle), "Motorcycle", "km/h");
-
+                        
                         if (inputString == "+")
                         {
                             AddVehicle(1, Vehicle.Motorcycle, true);
@@ -167,8 +166,8 @@ namespace Labb2
             }
 
         }
-
-
+        
+        
         /// <summary>
         /// Adds vehicle by chosen type in the public Ivehicle list.
         /// </summary>
@@ -208,14 +207,14 @@ namespace Labb2
             Console.WriteLine($"-- {list.Count} {vehicle}s in stock --");
             for (int i = 0; i < list.Count; i++)
             {
-                var index = i + 1;
+                var index = i+1;
                 Console.WriteLine($"{index}. {list[i].Name} - {list[i].getSpeed()} {speedUnit}");
             }
-
+            
             Console.WriteLine($"----------------");
             Console.WriteLine($"Please select {vehicle} to change (1-{list.Count}) or enter + to add a new {vehicle}");
-            ErrorHandling(Console.ReadLine(), list, false, true);
-
+            ErrorHandling(Console.ReadLine(),list,false,true);
+            
             Console.Clear();
         }
 
@@ -226,14 +225,14 @@ namespace Labb2
         /// <param name="speedUnit"></param>
         public static void ShowSpecificVehicle(IVehicle Item, string speedUnit)
         {
-
+            
             ErrorHandling(inputString);
             Console.WriteLine($"-- {Item.Name} --");
             Console.WriteLine($"Speed: {Item.getSpeed()} {speedUnit}");
             Console.WriteLine("----------------");
             Console.WriteLine($"Please enter a new speed(0-100) or - to remove {Item.Name}");
-
-            ErrorHandling(Console.ReadLine(), null, true, true);
+            
+            ErrorHandling(Console.ReadLine(),null,true,true);
             Console.Clear();
         }
 
@@ -255,7 +254,7 @@ namespace Labb2
         /// <param name="Item"></param>
         public static void ChangeSpeed(IVehicle Item)
         {
-
+            
             vehicles.Find(x => x.Name == Item.Name).setSpeed(input);
 
             Console.WriteLine($"{Item.Name} speed changed, press any key to go back to main menu");
@@ -270,20 +269,20 @@ namespace Labb2
         /// <param name="vehicleToPrint"></param>
         public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
         {
-
+         
             double ms = 0;
-
-            if (vehicleToPrint.type == Vehicle.Car)
+           
+            if (vehicleToPrint.type==Vehicle.Car)
             {
                 ms = vehicleToPrint.Speed * 0.447;
             }
-
-            else if (vehicleToPrint.type == Vehicle.Boat)
+            
+            else if (vehicleToPrint.type==Vehicle.Boat)
             {
                 ms = vehicleToPrint.Speed * 0.514;
             }
 
-            else if (vehicleToPrint.type == Vehicle.Motorcycle)
+            else if (vehicleToPrint.type==Vehicle.Motorcycle)
             {
                 ms = vehicleToPrint.Speed * 0.278;
             }
@@ -297,7 +296,7 @@ namespace Labb2
         /// <param name="fordon"></param>
         /// <param name="menuOrRemove"></param>
         /// <param name="add"></param>
-        public static void ErrorHandling(string error, List<IVehicle> fordon = null, bool menuOrRemove = false, bool add = false)
+        public static void ErrorHandling(string error, List<IVehicle> fordon = null,bool menuOrRemove=false,bool add=false)
         {
             var output = 0;
             var wrong = true;
@@ -312,7 +311,7 @@ namespace Labb2
                 }
                 else if (fordon != null && output >= 0 && output <= fordon.Count && test == true)
                 {
-                    Item = fordon[output - 1];
+                    Item = fordon[output-1];
                     inputString = error;
                     wrong = false;
                 }
@@ -321,7 +320,7 @@ namespace Labb2
                     input = output;
                     wrong = false;
                 }
-                else if (test && output >= 0 && output <= 100 && fordon == null)
+                else if(test && output >= 0 && output <= 100 && fordon == null)
                 {
                     input = output;
                     inputString = error;
@@ -332,14 +331,14 @@ namespace Labb2
                     Console.WriteLine("Wrong input, try again");
                     error = Console.ReadLine();
                 }
-
+                
             }
         }
-
-
-
-
-
+        
+        
+        
+    
+      
         // Samma funktion som print+case4 på ett ställe, mer lättläsligt!!!!!!!!!!!!!!!!!
         // Caset sen mycket "cleanare" ut med koden nedanför.
 
@@ -347,7 +346,7 @@ namespace Labb2
         //{
         //    vehicles = vehicles.OrderBy(x => x.Name).ToList();
         //    double ms = 0;
-
+            
         //    foreach (var item in vehicles)
         //    {
         //        if (item.type == Vehicle.Car)
@@ -371,6 +370,4 @@ namespace Labb2
         //    Console.Clear();
         //}
     }
-
-
 }
