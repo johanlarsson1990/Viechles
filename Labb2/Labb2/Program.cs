@@ -309,7 +309,7 @@ namespace Labb2
                     wrong = false;
 
                 }
-                else if (fordon != null && output >= 0 && output <= fordon.Count && test == true)
+                else if (fordon != null && output > 0 && output <= fordon.Count && test == true)
                 {
                     Item = fordon[output-1];
                     inputString = error;
