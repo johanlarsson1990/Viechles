@@ -422,7 +422,7 @@ namespace Labb2
                 else if (menuOrRemove && output >= 1 && output <= 5)
                 {
                     input = output;
-                    wrong = false
+                    wrong = false;
                 }
                 else if (test && output >= 0 && output <= 100 && fordon == null)
                 {
