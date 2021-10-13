@@ -11,7 +11,8 @@ namespace Labb2
         string Name { get; set; }
         int Speed { get; set; }
         Vehicle type { get; set; }
-
+        double SpeedMInS { get; set; }
+        
         int setSpeed(int newSpeed);
         int getSpeed();
 

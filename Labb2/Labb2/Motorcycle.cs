@@ -11,14 +11,17 @@ namespace Labb2
         public string Name { get; set; }
         public int Speed { get; set; }
         public Vehicle type { get; set; }
+        public double SpeedMInS { get; set; }
+
 
         public static int Count = 0;
-        public Motorcycle(Random rnd)
+        public Motorcycle(Random rnd, string name)
         {
             Count = Count + 1;
-            Name = Vehicle.Motorcycle + " " + Count;
+            Name = name;
             type = Vehicle.Motorcycle;
             Speed = rnd.Next(10, 100);
+            SpeedMInS = Speed * 0.28;
         }
         public int setSpeed(int newSpeed)
         {
