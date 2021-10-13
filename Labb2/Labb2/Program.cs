@@ -68,13 +68,14 @@ namespace Labb2
                                   "5. Search for vehicle\n" +
                                   "6. Quit program");
 
-                ErrorHandling(Console.ReadLine());
+                ErrorHandling(Console.ReadLine(), null, true);
                 Console.Clear();
 
                 switch (input)
                 {
+                    
                     case 1:
-                        while (true)
+                        while (inputString != "q")
                         {
                             WriteList(vehicles.FindAll(x => x.type == Vehicle.Car), "Car", "mph");
 
@@ -83,34 +84,24 @@ namespace Labb2
                                 AddVehicle(1, Vehicle.Car);
                                 continue;
                             }
-                            else if (inputString == "-")
-                            {
-                                RemoveVehicle(Item); 
-                                continue;
-                            }
                             else
                             {
                                 ShowSpecificVehicle(Item, "mph");
-                                ChangeSpeed(Item);
-                                continue;
 
+                                if (inputString == "-")
+                                {
+                                    RemoveVehicle(Item);
+                                    continue;
+                                }
+                                else
+                                {
+                                    ChangeSpeed(Item);
+                                    continue;
+                                }
                             }
-                            //else
-                            //{
-                            //    ShowSpecificVehicle(Item, "mph");
-
-                            //    if (inputString == "-")
-                            //    {
-                            //        RemoveVehicle(Item);
-                            //        continue;
-                            //    }
-                            //    else
-                            //    {
-                            //        ChangeSpeed(Item);
-                            //        continue;
-                            //    }
-                            //} 
                         }
+
+                        break;
 
                     //case 2:
                     //    WriteList(vehicles.FindAll(x => x.type == Vehicle.Boat), "Boat", "knots");
@@ -240,9 +231,9 @@ namespace Labb2
             
             Console.WriteLine($"----------------");
             Console.WriteLine($"Please select {vehicle} to change (1-{list.Count}) or enter + to add a new {vehicle}");
-            ErrorHandling(Console.ReadLine(),list);
+            ErrorHandling(Console.ReadLine(),list, false, true);
             
-            Console.Clear();
+            
         }
 
         /// <summary>
@@ -259,7 +250,7 @@ namespace Labb2
             Console.WriteLine("----------------");
             Console.WriteLine($"Please enter a new speed(0-100) or - to remove {Item.Name}");
             
-            ErrorHandling(Console.ReadLine(),null);
+            ErrorHandling(Console.ReadLine(),null, true, true);
             Console.Clear();
         }
 
@@ -417,6 +408,11 @@ namespace Labb2
                     wrong = false;
 
                 }
+                else if (menuOrRemove && error == "q" && add || error == "q" && add && menuOrRemove == false)
+                {
+                    inputString = error;
+                    wrong = false;
+                }
                 else if (fordon != null && output > 0 && output <= fordon.Count && test == true)
                 {
                     Item = fordon[output - 1];
@@ -434,6 +430,7 @@ namespace Labb2
                     inputString = error;
                     wrong = false;
                 }
+                
                 else
                 {
                     Console.WriteLine("Wrong input, try again");
