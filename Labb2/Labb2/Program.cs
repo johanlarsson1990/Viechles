@@ -324,44 +324,7 @@ namespace Labb2
         /// <param name="fordon"></param>
         /// <param name="menuOrRemove"></param>
         /// <param name="add"></param>
-        public static void ErrorHandling(string error, List<IVehicle> fordon = null)
-        {
-            var output = 0;
-            var wrong = true;
-            while (wrong)
-            {
-                var test = int.TryParse(error, out output);
-                if (error == "-" || error == "+")
-                {
-                    inputString = error;
-                    wrong = false;
-
-                }
-                else if (fordon != null && output > 0 && output <= fordon.Count && test == true)
-                {
-                    Item = fordon[output - 1];
-                    inputString = error;
-                    wrong = false;
-                }
-                else if (output >= 1 && output <= 5)
-                {
-                    input = output;
-                    wrong = false;
-                }
-                else if (test && output >= 0 && output <= 100 && fordon == null)
-                {
-                    input = output;
-                    inputString = error;
-                    wrong = false;
-                }
-                else
-                {
-                    Console.WriteLine("Wrong input, try again");
-                    error = Console.ReadLine();
-                }
-
-            }
-        }
+        
 
         public static string RandomName(Random r)
         {
@@ -441,43 +404,43 @@ namespace Labb2
         //    Console.Clear();
         //}
 
-        //public static void ErrorHandling(string error, List<IVehicle> fordon = null, bool menuOrRemove = false, bool add = false)
-        //{
-        //    var output = 0;
-        //    var wrong = true;
-        //    while (wrong)
-        //    {
-        //        var test = int.TryParse(error, out output);
-        //        if (menuOrRemove && error == "-" && add || error == "+" && add && menuOrRemove == false)
-        //        {
-        //            inputString = error;
-        //            wrong = false;
+        public static void ErrorHandling(string error, List<IVehicle> fordon = null, bool menuOrRemove = false, bool add = false)
+        {
+            var output = 0;
+            var wrong = true;
+            while (wrong)
+            {
+                var test = int.TryParse(error, out output);
+                if (menuOrRemove && error == "-" && add || error == "+" && add && menuOrRemove == false)
+                {
+                    inputString = error;
+                    wrong = false;
 
-        //        }
-        //        else if (fordon != null && output > 0 && output <= fordon.Count && test == true)
-        //        {
-        //            Item = fordon[output - 1];
-        //            inputString = error;
-        //            wrong = false;
-        //        }
-        //        else if (menuOrRemove && output >= 1 && output <= 5)
-        //        {
-        //            input = output;
-        //            wrong = false;
-        //        }
-        //        else if (test && output >= 0 && output <= 100 && fordon == null)
-        //        {
-        //            input = output;
-        //            inputString = error;
-        //            wrong = false;
-        //        }
-        //        else
-        //        {
-        //            Console.WriteLine("Wrong input, try again");
-        //            error = Console.ReadLine();
-        //        }
+                }
+                else if (fordon != null && output > 0 && output <= fordon.Count && test == true)
+                {
+                    Item = fordon[output - 1];
+                    inputString = error;
+                    wrong = false;
+                }
+                else if (menuOrRemove && output >= 1 && output <= 5)
+                {
+                    input = output;
+                    wrong = false;
+                }
+                else if (test && output >= 0 && output <= 100 && fordon == null)
+                {
+                    input = output;
+                    inputString = error;
+                    wrong = false;
+                }
+                else
+                {
+                    Console.WriteLine("Wrong input, try again");
+                    error = Console.ReadLine();
+                }
 
-        //    }
-        //}
+            }
+        }
     }
 }
