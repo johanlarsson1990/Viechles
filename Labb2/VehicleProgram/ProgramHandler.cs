@@ -1,64 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using VehicleClasses;
 
-namespace Labb2
+namespace VehicleProgram
 {
-
-
-    class Program
+    public class ProgramHandler
     {
+        
         public static List<IVehicle> vehicles = new List<IVehicle>();
         public static IVehicle Item;
         public static int input;
         public static string inputString;
-        public static bool run1 = true;
 
-        static void Main(string[] args)
+        public void StartUp()
         {
-            Welcome();
+            var path = @"C:\temp\Labb3\text.txt";
+            var exist = File.Exists(path);
+
+            if (exist)
+                Welcome(true);
+            else
+                Welcome(false);
+
+
+        }
+        /// <summary>
+        /// Say welcome to user, explains the task, let the user input an optional number of each vehicle-Type.
+        /// </summary>
+        public void Welcome(bool exist)
+        {
+            if (exist)
+            {
+                Console.WriteLine("----Welcome to Vehicles!----\n" +
+                                  "Vehicles has been created from former saved file.\n" +
+                                  "Ready? Please press enter!");
+                Console.ReadLine();
+                Console.Clear();
+
+                CreateFromTextFile(vehicles);
+            }
+            else
+            {
+                Console.WriteLine("----Welcome to Vehicles!----\n" +
+                                  "You're going to create an optional number of three specific\n" +
+                                  "vehicle types, Cars, Boats and Motorcycles.\n" +
+                                  "Ready? Please press enter!");
+                Console.ReadLine();
+                Console.Clear();
+
+                CreateVehicleInConsole();
+            }
+
             MenuAndActions();
         }
 
         /// <summary>
-        /// Say welcome to user, explains the task, let the user input an optional number of each vehicle-type.
-        /// </summary>
-        public static void Welcome()
-        {
-            Console.WriteLine("----Welcome to Vehicles!----\n" +
-                              "You're going to create an optional number of three specific\n" +
-                              "vehicle types, Cars, Boats and Motorcycles.\n" +
-                              "Ready? Please press enter!");
-            Console.ReadLine();
-            Console.Clear();
-
-            Console.WriteLine("How many Cars do you want to create?");
-            ErrorHandling(Console.ReadLine());
-            AddVehicle(input, Vehicle.Car);
-            Console.Clear();
-
-            Console.WriteLine("How many Boats do you want to create?");
-            ErrorHandling(Console.ReadLine());
-            AddVehicle(input, Vehicle.Boat);
-            Console.Clear();
-
-            Console.WriteLine("How many Motorcycles do you want to create?");
-            ErrorHandling(Console.ReadLine());
-            AddVehicle(input, Vehicle.Motorcycle);
-            Console.Clear();
-        }
-
-        /// <summary>
-        /// Calls the menu choice after valid input of each vehicle type
+        /// Calls the menu choice after valid input of each vehicle Type
         /// calls specific methods based on the users input until the user chose to quit the program
         /// </summary>
-        public static void MenuAndActions()
+        public void MenuAndActions()
         {
             var run = true;
             while (run)
@@ -76,10 +80,10 @@ namespace Labb2
 
                 switch (input)
                 {
-                    
+
                     case 1:
-                        WriteList(vehicles.FindAll(x => x.type == Vehicle.Car), "Car", "mph");
-                            
+                        WriteList(vehicles.FindAll(x => x.Type == Vehicle.Car), "Car", "mph");
+
 
                         if (inputString == "+")
                         {
@@ -101,12 +105,12 @@ namespace Labb2
                                 continue;
                             }
                         }
-                        
 
-                        
+
+
 
                     case 2:
-                        WriteList(vehicles.FindAll(x => x.type == Vehicle.Boat), "Boat", "knots");
+                        WriteList(vehicles.FindAll(x => x.Type == Vehicle.Boat), "Boat", "knots");
 
                         if (inputString == "+")
                         {
@@ -130,7 +134,7 @@ namespace Labb2
                         }
 
                     case 3:
-                        WriteList(vehicles.FindAll(x => x.type == Vehicle.Motorcycle), "Motorcycle", "km/h");
+                        WriteList(vehicles.FindAll(x => x.Type == Vehicle.Motorcycle), "Motorcycle", "km/h");
 
                         if (inputString == "+")
                         {
@@ -176,7 +180,7 @@ namespace Labb2
                         SearchVechicle(name);
                         break;
                     case 6:
-                        WriteToTextFile(vehicles.OrderBy(x => x.type).ToList());
+                        WriteToTextFile(vehicles.OrderBy(x => x.Type).ToList());
                         run = false;
                         break;
                 }
@@ -184,17 +188,33 @@ namespace Labb2
 
         }
 
-        
 
-        
 
+
+        public void CreateVehicleInConsole()
+        {
+            Console.WriteLine("How many Cars do you want to create?");
+            ErrorHandling(Console.ReadLine());
+            AddVehicle(input, Vehicle.Car);
+            Console.Clear();
+
+            Console.WriteLine("How many Boats do you want to create?");
+            ErrorHandling(Console.ReadLine());
+            AddVehicle(input, Vehicle.Boat);
+            Console.Clear();
+
+            Console.WriteLine("How many Motorcycles do you want to create?");
+            ErrorHandling(Console.ReadLine());
+            AddVehicle(input, Vehicle.Motorcycle);
+            Console.Clear();
+        }
         /// <summary>
-        /// Adds vehicle by chosen type in the public Ivehicle list.
+        /// Adds vehicle by chosen Type in the public Ivehicle list.
         /// </summary>
         /// <param name="addera"> how many to add to list </param>
-        /// <param name="type"> type of vehicle </param>
+        /// <param name="type"> Type of vehicle </param>
         /// <param name="write"></param>
-        public static void AddVehicle(int addera, Vehicle type, bool write = false)
+        public void AddVehicle(int addera, Vehicle type, bool write = false)
         {
             var random = new Random(DateTime.Now.Millisecond);
 
@@ -216,33 +236,33 @@ namespace Labb2
         }
 
         /// <summary>
-        /// Writes out a list of vehicle, by chosen type
+        /// Writes out a list of vehicle, by chosen Type
         /// </summary>
         /// <param name="list"> takes in the public Ivehicle list</param>
         /// <param name="vehicle"> </param>
         /// <param name="speedUnit"></param>
-        public static void WriteList(List<IVehicle> list, string vehicle, string speedUnit)
+        public void WriteList(List<IVehicle> list, string vehicle, string speedUnit)
         {
 
             Console.WriteLine($"-- {list.Count} {vehicle}s in stock --");
             for (int i = 0; i < list.Count; i++)
             {
-                var index = i+1;
+                var index = i + 1;
                 Console.WriteLine($"{index}. {list[i].Name} - {list[i].getSpeed()} {speedUnit}");
             }
-            
+
             Console.WriteLine($"----------------");
             Console.WriteLine($"Please select {vehicle} to change (1-{list.Count}) or enter + to add a new {vehicle}");
-            ErrorHandling(Console.ReadLine(), list, false, true); 
-            
+            ErrorHandling(Console.ReadLine(), list, false, true);
+
         }
 
         /// <summary>
-        /// Show the chosen vehicle of the given type. For further tasks
+        /// Show the chosen vehicle of the given Type. For further tasks
         /// </summary>
         /// <param name="Item"></param>
         /// <param name="speedUnit"></param>
-        public static void ShowSpecificVehicle(IVehicle Item, string speedUnit)
+        public void ShowSpecificVehicle(IVehicle Item, string speedUnit)
         {
             Console.Clear();
             ErrorHandling(inputString);
@@ -250,8 +270,8 @@ namespace Labb2
             Console.WriteLine($"Speed: {Item.getSpeed()} {speedUnit}");
             Console.WriteLine("----------------");
             Console.WriteLine($"Please enter a new speed(0-100) or - to remove {Item.Name}");
-            
-            ErrorHandling(Console.ReadLine(),null, true, true);
+
+            ErrorHandling(Console.ReadLine(), null, true, true);
             Console.Clear();
         }
 
@@ -259,9 +279,9 @@ namespace Labb2
         /// Removes the chosen vehicle from Ivehicle list 
         /// </summary>
         /// <param name="Item"></param>
-        public static void RemoveVehicle(IVehicle Item)
+        public void RemoveVehicle(IVehicle Item)
         {
-            
+
             vehicles.Remove(Item);
 
             Console.WriteLine($"{Item.Name} removed, press any key to go back to main menu");
@@ -272,9 +292,9 @@ namespace Labb2
         /// Change the speed of the chosen vehicle
         /// </summary>
         /// <param name="Item"></param>
-        public static void ChangeSpeed(IVehicle Item)
+        public void ChangeSpeed(IVehicle Item)
         {
-            
+
             vehicles.Find(x => x.Name == Item.Name).setSpeed(input);
 
             Console.WriteLine($"{Item.Name} speed changed, press any key to go back to main menu");
@@ -287,24 +307,24 @@ namespace Labb2
         /// Convert the chosen vehicles speed unit to m/s and display  it on the console.
         /// </summary>
         /// <param name="vehicleToPrint"></param>
-        public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
+        public void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
         {
-         
+
             double ms = 0;
-           
-            if (vehicleToPrint.type==Vehicle.Car)
+
+            if (vehicleToPrint.Type == Vehicle.Car)
             {
-                ms = vehicleToPrint.Speed * 0.447;
-            }
-            
-            else if (vehicleToPrint.type==Vehicle.Boat)
-            {
-                ms = vehicleToPrint.Speed * 0.514;
+                ms = vehicleToPrint.Speed * 0.45;
             }
 
-            else if (vehicleToPrint.type==Vehicle.Motorcycle)
+            else if (vehicleToPrint.Type == Vehicle.Boat)
             {
-                ms = vehicleToPrint.Speed * 0.278;
+                ms = vehicleToPrint.Speed * 0.51;
+            }
+
+            else if (vehicleToPrint.Type == Vehicle.Motorcycle)
+            {
+                ms = vehicleToPrint.Speed * 0.28;
             }
             Console.WriteLine($"{vehicleToPrint.Name} - {ms} - m/s");
         }
@@ -316,9 +336,9 @@ namespace Labb2
         /// <param name="fordon"></param>
         /// <param name="menuOrRemove"></param>
         /// <param name="add"></param>
-        
 
-        public static string RandomName(Random r)
+
+        public string RandomName(Random r)
         {
             var Index = 0;
             string output;
@@ -337,16 +357,16 @@ namespace Labb2
             return output;
 
         }
-        public static void SearchVechicle(string name)
+        public void SearchVechicle(string name)
         {
 
             var match = vehicles.Where(x => x.Name.ToLower() == name.ToLower()).ToList();
             Console.WriteLine();
             Console.WriteLine(match.Count > 0 ? $"Found ({match.Count} vehicles):" : "No matches found");
 
-            WriteSearchType(match.FindAll(x => x.type == Vehicle.Car), Vehicle.Car);
-            WriteSearchType(match.FindAll(x => x.type == Vehicle.Boat), Vehicle.Boat);
-            WriteSearchType(match.FindAll(x => x.type == Vehicle.Motorcycle), Vehicle.Motorcycle);
+            WriteSearchType(match.FindAll(x => x.Type == Vehicle.Car), Vehicle.Car);
+            WriteSearchType(match.FindAll(x => x.Type == Vehicle.Boat), Vehicle.Boat);
+            WriteSearchType(match.FindAll(x => x.Type == Vehicle.Motorcycle), Vehicle.Motorcycle);
 
             Console.WriteLine("\n" +
                               "----------------\n" +
@@ -355,33 +375,59 @@ namespace Labb2
             Console.Clear();
         }
 
-        public static void WriteSearchType(List<IVehicle> list, Vehicle type)
+        public void WriteSearchType(List<IVehicle> list, Vehicle type)
         {
             if (list.Count != 0)
             {
                 Console.WriteLine($"\n" +
-                                      $"--{type.ToString()}--"); 
+                                      $"--{type.ToString()}--");
             }
             foreach (var i in list)
             {
-                Console.WriteLine($"{i.Name} - {i.SpeedMInS}m/s ");
+                Console.WriteLine($"{i.Name} - {i.Speed * i.ConvertMS}m/s ");
             }
 
         }
 
-        public static void WriteToTextFile(List<IVehicle> list)
+        public void WriteToTextFile(List<IVehicle> list)
         {
             List<string> lines = new List<string>();
             var path = @"C:\temp\Labb3\text.txt";
 
             foreach (var vehicle in list)
             {
-                lines.Add($"{vehicle.type};{vehicle.Name};{vehicle.Speed}");
+                lines.Add($"{vehicle.Type};{vehicle.Name};{vehicle.Speed}");
             }
 
             File.WriteAllLines(path, lines);
 
         }
+
+        public void CreateFromTextFile(List<IVehicle> list)
+        {
+            var path = @"C:\temp\Labb3\text.txt";
+            List<string> lines = File.ReadAllLines(path).ToList();
+
+            foreach (var line in lines)
+            {
+                string[] splittedLines = line.Split(';');
+
+                switch (splittedLines[0])
+                {
+                    case "Car":
+                        list.Add(new Car { Name = splittedLines[1], Speed = int.Parse(splittedLines[2]) });
+                        break;
+                    case "Boat":
+                        list.Add(new Boat { Name = splittedLines[1], Speed = int.Parse(splittedLines[2]) });
+                        break;
+                    default:
+                        list.Add(new Motorcycle { Name = splittedLines[1], Speed = int.Parse(splittedLines[2]) });
+                        break;
+                }
+            }
+        }
+
+
 
 
 
@@ -399,17 +445,17 @@ namespace Labb2
 
         //    foreach (var item in vehicles)
         //    {
-        //        if (item.type == Vehicle.Car)
+        //        if (item.Type == Vehicle.Car)
         //        {
         //            ms = item.Speed * 0.447;
         //        }
 
-        //        else if (item.type == Vehicle.Boat)
+        //        else if (item.Type == Vehicle.Boat)
         //        {
         //            ms = item.Speed * 0.514;
         //        }
 
-        //        else if (item.type == Vehicle.Motorcycle)
+        //        else if (item.Type == Vehicle.Motorcycle)
         //        {
         //            ms = item.Speed * 0.278;
         //        }
@@ -420,7 +466,7 @@ namespace Labb2
         //    Console.Clear();
         //}
 
-        public static void ErrorHandling(string error, List<IVehicle> fordon = null, bool menuOrRemove = false, bool add = false)
+        public void ErrorHandling(string error, List<IVehicle> fordon = null, bool menuOrRemove = false, bool add = false)
         {
             var output = 0;
             var wrong = true;
@@ -455,7 +501,7 @@ namespace Labb2
                     inputString = error;
                     wrong = false;
                 }
-                
+
                 else
                 {
                     Console.WriteLine("Wrong input, try again");

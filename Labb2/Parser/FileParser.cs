@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labb2
+namespace Parser
 {
-    public enum Vehicle
+    class FileParser
     {
-        Car = 1,
-        Boat = 2,
-        Motorcycle = 3
-        
+
     }
 }

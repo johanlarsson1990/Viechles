@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VehicleClasses;
 
-namespace Labb2
+namespace Interface
 {
     public interface IVehicle
     {
         string Name { get; set; }
         int Speed { get; set; }
-        Vehicle type { get; set; }
-        double SpeedMInS { get; set; }
+        Vehicle Type { get; set; }
+        double ConvertMS { get; set; }
         
         int setSpeed(int newSpeed);
         int getSpeed();
