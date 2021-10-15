@@ -41,7 +41,7 @@ namespace VehicleProgram
                                   "Ready? Please press enter!");
                 Console.ReadLine();
                 Console.Clear();
-
+                //HÄR SKA FILEPÀRSER IN
                 CreateFromTextFile(vehicles);
             }
             else
