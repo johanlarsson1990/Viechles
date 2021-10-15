@@ -44,5 +44,15 @@
     <Compile Include="FileParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SaveLoadFile\SaveLoadFile.csproj">
+      <Project>{B3278043-07A0-41FD-A8B7-E803D50B55A7}</Project>
+      <Name>SaveLoadFile</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleClasses\VehicleClasses.csproj">
+      <Project>{3B61EFBB-514D-42FB-B348-23D798C6CE45}</Project>
+      <Name>VehicleClasses</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

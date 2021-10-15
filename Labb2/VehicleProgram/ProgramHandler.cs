@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Parser;
 using VehicleClasses;
 
 namespace VehicleProgram
@@ -180,7 +181,7 @@ namespace VehicleProgram
                         SearchVechicle(name);
                         break;
                     case 6:
-                        WriteToTextFile(vehicles.OrderBy(x => x.Type).ToList());
+                        FileParser saveData = new FileParser(vehicles.OrderBy(x => x.Type).ToList());
                         run = false;
                         break;
                 }
@@ -389,19 +390,7 @@ namespace VehicleProgram
 
         }
 
-        public void WriteToTextFile(List<IVehicle> list)
-        {
-            List<string> lines = new List<string>();
-            var path = @"C:\temp\Labb3\text.txt";
-
-            foreach (var vehicle in list)
-            {
-                lines.Add($"{vehicle.Type};{vehicle.Name};{vehicle.Speed}");
-            }
-
-            File.WriteAllLines(path, lines);
-
-        }
+        
 
         public void CreateFromTextFile(List<IVehicle> list)
         {

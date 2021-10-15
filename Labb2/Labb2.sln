@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleProgram", "VehiclePr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser", "Parser\Parser.csproj", "{11AFB757-A5EF-4EDE-9165-354428CA53ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileHandler", "FileHandler\FileHandler.csproj", "{0CBFE489-01D5-4E5B-975C-0C479543D48F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveLoadFile", "SaveLoadFile\SaveLoadFile.csproj", "{B3278043-07A0-41FD-A8B7-E803D50B55A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{11AFB757-A5EF-4EDE-9165-354428CA53ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11AFB757-A5EF-4EDE-9165-354428CA53ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11AFB757-A5EF-4EDE-9165-354428CA53ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CBFE489-01D5-4E5B-975C-0C479543D48F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CBFE489-01D5-4E5B-975C-0C479543D48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CBFE489-01D5-4E5B-975C-0C479543D48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CBFE489-01D5-4E5B-975C-0C479543D48F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3278043-07A0-41FD-A8B7-E803D50B55A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3278043-07A0-41FD-A8B7-E803D50B55A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3278043-07A0-41FD-A8B7-E803D50B55A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3278043-07A0-41FD-A8B7-E803D50B55A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
