@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Labb2
 {
+    public class Boat : IVehicle
     {
         public string Name { get; set; }
         public int Speed { get; set; }
