@@ -11,33 +11,24 @@ namespace Labb2
         public int Speed { get; set; }
         public Vehicle type { get; set; }
         public static int Count = 0;
+
         public Boat(Random rnd)
         {
+
             Count = Count + 1;
             Name = Vehicle.Boat + " " + Count;
             type = Vehicle.Boat;
             Speed = rnd.Next(10, 100);
         }
 
-        public int setSpeed(int newspeed)
+        public int setSpeed(int newSpeed)
         {
-            return Speed = newspeed;
+            return Speed = newSpeed;
         }
+
         public int getSpeed()
         {
             return Speed;
         }
-        // public static List<int> listOfBoats = new List<int>();
-
-        //public static void CreateList(int input)
-        //{
-
-        //    var random = new Random();
-
-        //    for (int i = 0; i < input; i++)
-        //    {
-        //        listOfBoats.Add(random.Next(10, 100));
-        //    }
-        //}
     }
 }

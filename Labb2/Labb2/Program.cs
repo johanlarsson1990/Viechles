@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,13 +16,15 @@ namespace Labb2
         
         static void Main(string[] args)
         {
+            Welcome();
             Menu();
-
-            Console.ReadLine();
         }
-        public static void Menu()
+
+        /// <summary>
+        /// Say welcome to user, explains the task, let the user input an optional number of each vehicle-type.
+        /// </summary>
+        public static void Welcome()
         {
-            
             Console.WriteLine("----Welcome to Vehicles!----\n" +
                               "You're going to create an optional number of three specific\n" +
                               "vehicle types, Cars, Boats and Motorcycles.\n" +
@@ -29,40 +32,44 @@ namespace Labb2
             Console.ReadLine();
             Console.Clear();
 
-
             Console.WriteLine("How many Cars do you want to create?");
-            //AddVehicle(int.Parse(Console.ReadLine()), Vehicle.Car);
-            //Car.CreateList(int.Parse(Console.ReadLine()));
-            AddVehicle(int.Parse(felhantering(Console.ReadLine())), Vehicle.Car);
+            ErrorHandling(Console.ReadLine());
+            AddVehicle(input, Vehicle.Car);
             Console.Clear();
 
             Console.WriteLine("How many Boats do you want to create?");
-            AddVehicle(int.Parse(felhantering(Console.ReadLine())), Vehicle.Boat);
-            //Boat.CreateList(int.Parse(Console.ReadLine()));
+            ErrorHandling(Console.ReadLine());
+            AddVehicle(input, Vehicle.Boat);
             Console.Clear();
 
             Console.WriteLine("How many Motorcycles do you want to create?");
-            AddVehicle(int.Parse(felhantering(Console.ReadLine())), Vehicle.Motorcycle);
-            //Motorcycle.CreateList(int.Parse(Console.ReadLine()));
+            ErrorHandling(Console.ReadLine());
+            AddVehicle(input, Vehicle.Motorcycle);
             Console.Clear();
+        }
 
-
-
-            // while
-            while (true)
+        /// <summary>
+        /// Calls the menu choice after valid input of each vehicle type
+        /// calls specific methods based on the users input until the user chose to quit the program
+        /// </summary>
+        public static void Menu()
+        {
+            var run = true;
+            while (run)
             {
                 Console.WriteLine("-- Please select --\n" +
                                   "1. Print/Create Cars\n" +
                                   "2. Print/Create Boats\n" +
                                   "3. Print/create Motorcycles\n" +
-                                  "4. Print all vehicles in m/s");
-                input = int.Parse(felhantering(Console.ReadLine(),4,true));
+                                  "4. Print all vehicles in m/s\n" +
+                                  "5. Quit program");
+
+                ErrorHandling(Console.ReadLine(),null,true);
                 Console.Clear();
 
                 switch (input)
                 {
                     case 1:
-                        //Skriver ut alla Car's
                         WriteList(vehicles.FindAll(x => x.type == Vehicle.Car), "Car", "mph");
 
                         if (inputString == "+")
@@ -70,7 +77,6 @@ namespace Labb2
                             AddVehicle(1, Vehicle.Car, true);
                             continue;
                         }
-
                         else
                         {
                             ShowSpecificVehicle(Item, "mph");
@@ -87,18 +93,14 @@ namespace Labb2
                             }
                         }
 
-                        break;
                     case 2:
-                        //Skriver ut alla Boat's
                         WriteList(vehicles.FindAll(x => x.type == Vehicle.Boat), "Boat", "knots");
-
 
                         if (inputString == "+")
                         {
                             AddVehicle(1, Vehicle.Boat, true);
                             continue;
                         }
-
                         else
                         {
                             ShowSpecificVehicle(Item, "knots");
@@ -114,18 +116,15 @@ namespace Labb2
                                 continue;
                             }
                         }
-                        break;
+                        
                     case 3:
-                        //Skriver ut alla Motorcycle's
                         WriteList(vehicles.FindAll(x => x.type == Vehicle.Motorcycle), "Motorcycle", "km/h");
-
-
+                        
                         if (inputString == "+")
                         {
                             AddVehicle(1, Vehicle.Motorcycle, true);
                             continue;
                         }
-
                         else
                         {
                             ShowSpecificVehicle(Item, "km/h");
@@ -141,45 +140,38 @@ namespace Labb2
                                 continue;
                             }
                         }
-                        break;
+
                     case 4:
                         // skriver ut alla listor i m/s
                         vehicles = vehicles.OrderBy(x => x.Name).ToList();
 
+                        Console.WriteLine("--Vehicles in m/s--");
                         foreach (var item in vehicles)
                         {
                             PrintSpeedInMetersPerSecond(item);
                         }
-                        Console.WriteLine("Press any key to return to main menu");
+
+                        Console.WriteLine("\n" +
+                                          "----------------\n" +
+                                          "Press any key to return to main menu");
                         Console.ReadKey();
                         Console.Clear();
-                        //PrintSpeedInMetersPerSecond();
                         break;
-                    default:
+                    case 5:
+                        run = false;
                         break;
-
                 }
             }
 
         }
-        public static void WriteList(List<IVehicle> list, string vehicle, string speedUnit)
-        {
-
-            Console.WriteLine($"-- {list.Count} {vehicle}s in stock --");
-
-            foreach (var i in list)
-                Console.WriteLine($"{i.Name} - {i.getSpeed()} {speedUnit}");
-
-            Console.WriteLine($"----------------");
-            Console.WriteLine($"Please select {vehicle} to change (1-{list.Count}) or enter + to add a new {vehicle}");
-            inputString = felhantering(Console.ReadLine());
-            if (inputString != "+")
-            {
-                Item = list[int.Parse(felhantering(inputString, list.Count,true)) - 1];
-            }
-            Console.Clear();
-        }
-
+        
+        
+        /// <summary>
+        /// Adds vehicle by chosen type in the public Ivehicle list.
+        /// </summary>
+        /// <param name="addera"> how many to add to list </param>
+        /// <param name="type"> type of vehicle </param>
+        /// <param name="write"></param>
         public static void AddVehicle(int addera, Vehicle type, bool write = false)
         {
             var random = new Random();
@@ -201,20 +193,51 @@ namespace Labb2
             }
         }
 
+        /// <summary>
+        /// Writes out a list of vehicle, by chosen type
+        /// </summary>
+        /// <param name="list"> takes in the public Ivehicle list</param>
+        /// <param name="vehicle"> </param>
+        /// <param name="speedUnit"></param>
+        public static void WriteList(List<IVehicle> list, string vehicle, string speedUnit)
+        {
+
+            Console.WriteLine($"-- {list.Count} {vehicle}s in stock --");
+            for (int i = 0; i < list.Count; i++)
+            {
+                var index = i+1;
+                Console.WriteLine($"{index}. {list[i].Name} - {list[i].getSpeed()} {speedUnit}");
+            }
+            
+            Console.WriteLine($"----------------");
+            Console.WriteLine($"Please select {vehicle} to change (1-{list.Count}) or enter + to add a new {vehicle}");
+            ErrorHandling(Console.ReadLine(),list,false,true);
+            
+            Console.Clear();
+        }
+
+        /// <summary>
+        /// Show the chosen vehicle of the given type. For further tasks
+        /// </summary>
+        /// <param name="Item"></param>
+        /// <param name="speedUnit"></param>
         public static void ShowSpecificVehicle(IVehicle Item, string speedUnit)
         {
-            input = int.Parse(felhantering(inputString));
-
+            
+            ErrorHandling(inputString);
             Console.WriteLine($"-- {Item.Name} --");
             Console.WriteLine($"Speed: {Item.getSpeed()} {speedUnit}");
             Console.WriteLine("----------------");
             Console.WriteLine($"Please enter a new speed(0-100) or - to remove {Item.Name}");
-            inputString = felhantering(Console.ReadLine());
-            //if (inputString != "-")
-            //    input = int.Parse(felhantering(inputString));
+            
+            ErrorHandling(Console.ReadLine(),null,true,true);
             Console.Clear();
         }
 
+        /// <summary>
+        /// Removes the chosen vehicle from Ivehicle list 
+        /// </summary>
+        /// <param name="Item"></param>
         public static void RemoveVehicle(IVehicle Item)
         {
             vehicles.Remove(Item);
@@ -223,10 +246,13 @@ namespace Labb2
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Change the speed of the chosen vehicle
+        /// </summary>
+        /// <param name="Item"></param>
         public static void ChangeSpeed(IVehicle Item)
         {
             
-            //input = felhantering(inputString);
             vehicles.Find(x => x.Name == Item.Name).setSpeed(input);
 
             Console.WriteLine($"{Item.Name} speed changed, press any key to go back to main menu");
@@ -234,56 +260,82 @@ namespace Labb2
             Console.Clear();
         }
 
-        public static void PrintSpeedInMetersPerSecond(IVehicle vehicletoprint)
+
+        /// <summary>
+        /// Convert the chosen vehicles speed unit to m/s and display  it on the console.
+        /// </summary>
+        /// <param name="vehicleToPrint"></param>
+        public static void PrintSpeedInMetersPerSecond(IVehicle vehicleToPrint)
         {
          
             double ms = 0;
            
-            if (vehicletoprint.type==Vehicle.Car)
+            if (vehicleToPrint.type==Vehicle.Car)
             {
-                ms = vehicletoprint.Speed * 0.447;
+                ms = vehicleToPrint.Speed * 0.447;
             }
             
-            else if (vehicletoprint.type==Vehicle.Boat)
+            else if (vehicleToPrint.type==Vehicle.Boat)
             {
-                ms = vehicletoprint.Speed * 0.514;
+                ms = vehicleToPrint.Speed * 0.514;
             }
 
-            else if (vehicletoprint.type==Vehicle.Motorcycle)
+            else if (vehicleToPrint.type==Vehicle.Motorcycle)
             {
-                ms = vehicletoprint.Speed * 0.278;
+                ms = vehicleToPrint.Speed * 0.278;
             }
-            Console.WriteLine($"{vehicletoprint.Name} - {ms} - m/s");
+            Console.WriteLine($"{vehicleToPrint.Name} - {ms} - m/s");
         }
 
-        public static string felhantering(string error, int count=0,bool list =false)
+        /// <summary>
+        /// Takes care of exception handling, checks if the user enter a valid input for the question.   
+        /// </summary>
+        /// <param name="error"></param>
+        /// <param name="fordon"></param>
+        /// <param name="menuOrRemove"></param>
+        /// <param name="add"></param>
+        public static void ErrorHandling(string error, List<IVehicle> fordon = null,bool menuOrRemove=false,bool add=false)
         {
-            
-            int output = 0;
-            bool wrong = true;
+            var output = 0;
+            var wrong = true;
             while (wrong)
             {
-                if(error == "-" || error == "+")
-                {
-                    wrong = false;
-                    break;
-                }
                 var test = int.TryParse(error, out output);
-                if (test == false && list == false)
+                if (menuOrRemove && error == "-" && add || error == "+" && add && menuOrRemove == false)
                 {
-                    Console.WriteLine("Wrong input, try again");
-                    error = Console.ReadLine();
+                    inputString = error;
+                    wrong = false;
+
                 }
-                else if (test == false && count > 0 || list == true && test == true && output > count)
+                else if (fordon != null && output > 0 && output <= fordon.Count && test == true)
                 {
-                    Console.WriteLine("Wrong input, try again");
-                    error = Console.ReadLine();
+                    Item = fordon[output-1];
+                    inputString = error;
+                    wrong = false;
+                }
+                else if (menuOrRemove && output >= 1 && output <= 5)
+                {
+                    input = output;
+                    wrong = false;
+                }
+                else if(test && output >= 0 && output <= 100 && fordon == null)
+                {
+                    input = output;
+                    inputString = error;
+                    wrong = false;
                 }
                 else
-                    wrong = false;
+                {
+                    Console.WriteLine("Wrong input, try again");
+                    error = Console.ReadLine();
+                }
+                
             }
-            return error;
         }
+        
+        
+        
+    
       
         // Samma funktion som print+case4 på ett ställe, mer lättläsligt!!!!!!!!!!!!!!!!!
         // Caset sen mycket "cleanare" ut med koden nedanför.
