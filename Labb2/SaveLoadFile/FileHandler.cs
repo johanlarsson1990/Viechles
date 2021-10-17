@@ -10,18 +10,18 @@ namespace SaveLoadFile
 {
     public class FileHandler
     {
-        string path = @"C:\temp\Labb3\text.txt";
+        public string NewPath { get; set; } = @"C:\temp\Labb3\text.txt";
 
         public bool SaveData(List<string> listOfRowsToSave)
         {
-            File.WriteAllLines(path, listOfRowsToSave);
+            File.WriteAllLines(NewPath, listOfRowsToSave);
 
             return true;
         }
 
         public List<string> GetSavedData()
         {
-            List<string> lines = File.ReadAllLines(path).ToList();
+            List<string> lines = File.ReadAllLines(NewPath).ToList();
 
             return lines;
 

@@ -55,6 +55,10 @@
       <Project>{11AFB757-A5EF-4EDE-9165-354428CA53ED}</Project>
       <Name>Parser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SaveLoadFile\SaveLoadFile.csproj">
+      <Project>{B3278043-07A0-41FD-A8B7-E803D50B55A7}</Project>
+      <Name>SaveLoadFile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VehicleClasses\VehicleClasses.csproj">
       <Project>{3b61efbb-514d-42fb-b348-23d798c6ce45}</Project>
       <Name>VehicleClasses</Name>

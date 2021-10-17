@@ -13,13 +13,13 @@ namespace Parser
     
     public class FileParser
     {
-        private FileHandler _fileHandler = new FileHandler();
+        private readonly FileHandler _fileHandler = new FileHandler();
         public List<string> DataRows { get; set; }
 
         public FileParser()
-        {
+        { 
             DataRows = _fileHandler.GetSavedData();
-            GetVehiclesFromSavedData(DataRows);
+
         }
 
         public FileParser(List<IVehicle> list)
@@ -28,6 +28,16 @@ namespace Parser
             
 
         }
+
+        public static bool FileExist()
+        {
+            FileHandler fileHandler = new FileHandler();
+
+            bool exist = File.Exists(fileHandler.NewPath);
+
+            return exist;
+        }
+
         public List<string> WriteToTextFile(List<IVehicle> list)
         {
             List<string> lines = new List<string>();
