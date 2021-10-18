@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Labb2
 {
     public class Car : IVehicle
@@ -12,14 +13,16 @@ namespace Labb2
         public int Speed { get; set; }
         public Vehicle type { get; set; }
         public static int Count = 0;
+        private RandomName nameHelper = new RandomName();
         public Car(Random rnd)
         {
 
             Count = Count + 1;
-            Name = Vehicle.Car + " " + Count;
+            Name = nameHelper.randomName(rnd);
             type = Vehicle.Car;
             Speed = rnd.Next(10, 100);
         }
+
 
         public int setSpeed(int newSpeed)
         {

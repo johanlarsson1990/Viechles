@@ -15,5 +15,6 @@ namespace Labb2
         int setSpeed(int newSpeed);
         int getSpeed();
 
+
     }
 }

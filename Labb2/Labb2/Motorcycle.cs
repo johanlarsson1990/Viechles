@@ -12,13 +12,15 @@ namespace Labb2
         public int Speed { get; set; }
         public Vehicle type { get; set; }
         public static int Count = 0;
+        private RandomName nameHelper = new RandomName();
         public Motorcycle(Random rnd)
         {
             Count = Count + 1;
-            Name = Vehicle.Motorcycle + " " + Count;
+            Name = nameHelper.randomName(rnd);
             type = Vehicle.Motorcycle;
             Speed = rnd.Next(10, 100);
         }
+
         public int setSpeed(int newSpeed)
         {
             return Speed = newSpeed;
