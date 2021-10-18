@@ -34,14 +34,15 @@ namespace VehicleProgram
         {
             if (exist)
             {
-                Console.WriteLine("----Welcome to Vehicles!----\n" +
-                                  "Vehicles has been created from former saved file.\n" +
-                                  "Ready? Please press enter!");
+                FileParser loadData = new FileParser();
+                AddToRightList(loadData.GetVehiclesFromSavedData(loadData.DataRows));
+                Console.WriteLine($"----Welcome to Vehicles!----\n" +
+                                  $"Vehicles has been created from former saved file.\n" +
+                                  $"Ready? Please press enter!");
                 Console.ReadLine();
                 Console.Clear();
                 //HÄR SKA FILEPÀRSER IN
-                FileParser loadData = new FileParser();
-                AddToRightList(loadData.GetVehiclesFromSavedData(loadData.DataRows));
+                
                 
             }
             else
@@ -193,17 +194,17 @@ namespace VehicleProgram
 
         public void CreateVehicleInConsole()
         {
-            Console.WriteLine("How many Cars do you want to create?");
+            Console.WriteLine("How many Cars do you want to create? (0-10)");
             ErrorHandling(Console.ReadLine());
             AddVehicle(Input, Vehicle.Car);
             Console.Clear();
 
-            Console.WriteLine("How many Boats do you want to create?");
+            Console.WriteLine("How many Boats do you want to create? (0-10)");
             ErrorHandling(Console.ReadLine());
             AddVehicle(Input, Vehicle.Boat);
             Console.Clear();
 
-            Console.WriteLine("How many Motorcycles do you want to create?");
+            Console.WriteLine("How many Motorcycles do you want to create? (0-10)");
             ErrorHandling(Console.ReadLine());
             AddVehicle(Input, Vehicle.Motorcycle);
             Console.Clear();
@@ -455,7 +456,7 @@ namespace VehicleProgram
             while (wrong)
             {
                 var test = int.TryParse(error, out output);
-                if (menuOrRemove && error == "-" && add || error == "+" && add && menuOrRemove == false)
+                if (menuOrRemove && error == "-" && add || error == "+" && add && menuOrRemove == false && fordon.Count < 10)
                 {
                     InputString = error;
                     wrong = false;
@@ -477,12 +478,13 @@ namespace VehicleProgram
                     Input = output;
                     wrong = false;
                 }
-                else if (test && output >= 0 && output <= 100 && fordon == null)
+                else if (test && output >= 0 && output <= 10 && fordon == null)
                 {
                     Input = output;
                     InputString = error;
                     wrong = false;
                 }
+                
 
                 else
                 {

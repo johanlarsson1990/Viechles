@@ -5,7 +5,7 @@ namespace VehicleClasses
 {
     public class Car : IVehicle
     {
-        public string Name { get; set; }
+        public string Name { get; set; } 
         public int Speed { get; set; }
         public Vehicle Type { get; set; }
         public double ConvertMS { get; set; }
