@@ -209,6 +209,7 @@ namespace VehicleProgram
             AddVehicle(Input, Vehicle.Motorcycle);
             Console.Clear();
         }
+
         /// <summary>
         /// Adds vehicle by chosen Type in the public Ivehicle list.
         /// </summary>

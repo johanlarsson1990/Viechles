@@ -10,18 +10,28 @@ namespace SaveLoadFile
 {
     public class FileHandler
     { 
-        public string newPath = new StreamWriter("text.txt").ToString();
+        
+        public string filePath = @"Text.txt";
+
+
 
         public bool SaveData(List<string> listOfRowsToSave)
         {
-            File.WriteAllLines(newPath, listOfRowsToSave);
+            var NewPath = new StreamWriter("Text.txt");
+            foreach (var row in listOfRowsToSave)
+            {
+                NewPath.WriteLine(row);
+            }
+
+            NewPath.Close();
 
             return true;
         }
 
         public List<string> GetSavedData()
         {
-            List<string> lines = File.ReadAllLines(newPath).ToList();
+            var filePath = @"Text.txt";
+            List<string> lines = File.ReadAllLines(filePath).ToList();
 
             return lines;
 

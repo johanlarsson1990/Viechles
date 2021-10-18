@@ -33,7 +33,7 @@ namespace Parser
         {
             FileHandler fileHandler = new FileHandler();
 
-            bool exist = File.Exists(fileHandler.newPath);
+            bool exist = File.Exists(fileHandler.filePath);
 
             return exist;
         }
