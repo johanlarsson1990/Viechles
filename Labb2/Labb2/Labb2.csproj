@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Boat.cs" />
     <Compile Include="Car.cs" />
-    <Compile Include="interface IVehicle.cs" />
+    <Compile Include="IVehicle.cs" />
     <Compile Include="Motorcycle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
